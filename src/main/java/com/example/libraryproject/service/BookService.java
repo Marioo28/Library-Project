@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Service
 public class BookService {
@@ -37,6 +39,24 @@ public class BookService {
     public List<Book> getBooksSortedByPrice() {
         return bookRepository.findAll().stream().sorted(Comparator.comparing(Book::getPrice).reversed()).toList();
     }
+
+
+    public List<BookDTO> findAllBooks() {
+        List<Book> books = bookRepository.findAll();
+
+        // Convert Book entities to BookDTOs
+        List<BookDTO> bookDTOs = books.stream()
+                .map(book -> {
+                    BookDTO bookDTO = new BookDTO(book);
+                    bookDTO.setPublisher(book.getPublisher().getName());
+                    bookDTO.setAuthor(book.getAuthor().getName());
+                    return bookDTO;
+                })
+                .collect(Collectors.toList());
+
+        return bookDTOs;
+    }
+
 
     public BookDTO addBook(BookDTO bookDTO) {
         Author author = authorService.findOrCreateAuthor(bookDTO.getAuthor());

@@ -1,8 +1,12 @@
 package com.example.libraryproject.controller;
 
+import com.example.libraryproject.model.Author;
+import com.example.libraryproject.model.DTO.AuthorDTO;
+import com.example.libraryproject.model.DTO.PublisherDTO;
 import com.example.libraryproject.model.Publisher;
 import com.example.libraryproject.service.PublisherService;
 import jakarta.transaction.Transactional;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +18,8 @@ import java.util.List;
 public class PublisherController {
     @Autowired
     private PublisherService publisherService;
+    @Autowired
+    private ModelMapper modelMapper;
 
     @PostMapping("/savePublisher")
     public Publisher savePublisher(@RequestBody Publisher publisher) {
@@ -21,8 +27,10 @@ public class PublisherController {
     }
 
     @GetMapping("/find/{id}")
-    public Publisher findPublisherById(@PathVariable int id) {
-        return publisherService.findPublisherById(id);
+    public ResponseEntity<PublisherDTO> findPublisherById(@PathVariable int id){
+        Publisher publisher = publisherService.findPublisherById(id);
+        PublisherDTO publisherDTO = modelMapper.map(publisher, PublisherDTO.class);
+        return ResponseEntity.ok().body(publisherDTO);
     }
 
     @GetMapping("/getAllPublishers")
