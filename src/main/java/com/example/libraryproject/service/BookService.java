@@ -40,9 +40,7 @@ public class BookService {
         return bookRepository.findAll().stream().sorted(Comparator.comparing(Book::getPrice).reversed()).toList();
     }
 
-//    public List<Book> findAllBooks(){
-//        return bookRepository.findAll();
-//    }
+
     public List<BookDTO> findAllBooks() {
         List<Book> books = bookRepository.findAll();
 
@@ -58,6 +56,8 @@ public class BookService {
 
         return bookDTOs;
     }
+
+
     public BookDTO addBook(BookDTO bookDTO) {
         Author author = authorService.findOrCreateAuthor(bookDTO.getAuthor());
         Publisher publisher = publisherService.findOrCreatePublisher(bookDTO.getPublisher());

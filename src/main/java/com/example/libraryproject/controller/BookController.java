@@ -2,6 +2,7 @@ package com.example.libraryproject.controller;
 
 import com.example.libraryproject.model.Book;
 import com.example.libraryproject.model.DTO.BookDTO;
+import com.example.libraryproject.model.DTO.PublisherDTO;
 import com.example.libraryproject.service.BookService;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
@@ -28,10 +29,12 @@ public class BookController {
         return bookService.addBook(bookDTO);
     }
 
-    @GetMapping("/find/{id}")
-    public Book findBookById(@PathVariable int id) {
-        return bookService.findBookById(id);
-    }
+//    @GetMapping("/find/{id}")
+//    public ResponseEntity<BookDTO> findBookById(@PathVariable int id){
+//        Book book = bookService.findBookById(id);
+//        BookDTO bookDTO = modelMapper.map(book, BookDTO.class );
+//        return ResponseEntity.ok().body(bookDTO);
+//    }
 
     @GetMapping("/getAllBooks")
     public List<BookDTO> getAllBooks(){
