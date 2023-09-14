@@ -1,6 +1,7 @@
 package com.example.libraryproject.controller;
 
 import com.example.libraryproject.model.Book;
+import com.example.libraryproject.model.DTO.BookDTO;
 import com.example.libraryproject.service.BookService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,11 @@ public class BookController {
     @PostMapping("/saveBook")
     public Book saveBook(@RequestBody Book book) {
         return bookService.saveBook(book);
+    }
+
+    @PostMapping("/addBook")
+    public BookDTO saveBook(@RequestBody BookDTO bookDTO) {
+        return bookService.addBook(bookDTO);
     }
 
     @GetMapping("/find/{id}")
