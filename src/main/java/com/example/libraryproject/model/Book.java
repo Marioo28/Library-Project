@@ -1,9 +1,6 @@
 package com.example.libraryproject.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,4 +21,12 @@ public class Book {
     private double price;
     private String description;
     private LocalDate year_of_release;
+
+    @ManyToOne
+    @JoinColumn(name = "publisher_id")
+    private Publisher publisher;
+
+    @ManyToOne
+    @JoinColumn(name = "author_id")
+    private Author author;
 }

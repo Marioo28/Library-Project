@@ -1,12 +1,12 @@
 package com.example.libraryproject.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -18,4 +18,11 @@ public class Author {
     private int id;
     private String name;
 
+
+    @OneToMany(mappedBy = "author")
+    List<Book> bookList = new ArrayList<>();
+
+    public Author(String name) {
+        this.name = name;
+    }
 }
