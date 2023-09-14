@@ -71,9 +71,9 @@ public class BookService {
         book.setPublisher(publisher);
         book.setAuthor(author);
 
-        try{
+        try {
             bookRepository.save(book);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

@@ -36,7 +36,8 @@ public class AuthorController {
 
     @GetMapping("/getAllAuthors")
     public List<AuthorDTO> getAllAuthors() {
-        return authorService.findAllAuthors().stream().map(author -> modelMapper.map(author, AuthorDTO.class))
+        return authorService.findAllAuthors().stream()
+                .map(author -> modelMapper.map(author, AuthorDTO.class))
                 .collect(Collectors.toList());
     }
 

@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/publishers")
@@ -27,15 +28,17 @@ public class PublisherController {
     }
 
     @GetMapping("/find/{id}")
-    public ResponseEntity<PublisherDTO> findPublisherById(@PathVariable int id){
+    public ResponseEntity<PublisherDTO> findPublisherById(@PathVariable int id) {
         Publisher publisher = publisherService.findPublisherById(id);
         PublisherDTO publisherDTO = modelMapper.map(publisher, PublisherDTO.class);
         return ResponseEntity.ok().body(publisherDTO);
     }
 
     @GetMapping("/getAllPublishers")
-    public List<Publisher> findAllPublishers() {
-        return publisherService.findAllPublishers();
+    public List<PublisherDTO> findAllPublishers() {
+        return publisherService.findAllPublishers().stream()
+                .map(publisher -> modelMapper.map(publisher, PublisherDTO.class))
+                .collect(Collectors.toList());
     }
 
     @Transactional

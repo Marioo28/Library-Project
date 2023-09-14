@@ -1,8 +1,6 @@
 package com.example.libraryproject.controller;
 
-import com.example.libraryproject.model.Book;
 import com.example.libraryproject.model.DTO.BookDTO;
-import com.example.libraryproject.model.DTO.PublisherDTO;
 import com.example.libraryproject.service.BookService;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
@@ -23,6 +21,10 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
+    public BookController(BookService bookService) {
+        this.bookService = bookService;
+    }
+
 
     @PostMapping("/addBook")
     public BookDTO saveBook(@RequestBody BookDTO bookDTO) {
@@ -37,7 +39,7 @@ public class BookController {
 //    }
 
     @GetMapping("/getAllBooks")
-    public List<BookDTO> getAllBooks(){
+    public List<BookDTO> getAllBooks() {
         return bookService.findAllBooks().stream().map(book -> modelMapper.map(book, BookDTO.class))
                 .collect(Collectors.toList());
     }
