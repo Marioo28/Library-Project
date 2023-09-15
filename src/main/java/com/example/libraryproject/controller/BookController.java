@@ -1,10 +1,12 @@
 package com.example.libraryproject.controller;
 
+import com.example.libraryproject.model.Book;
 import com.example.libraryproject.model.DTO.BookDTO;
 import com.example.libraryproject.service.BookService;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,5 +51,10 @@ public class BookController {
     public ResponseEntity<Void> removeById(@PathVariable int id) {
         bookService.removeBookById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/findByTitle")
+    public ResponseEntity<List<Book>> getBookByName(@RequestParam String name) {
+        return new ResponseEntity<List<Book>>(bookService.findBookByTitle(name), HttpStatus.OK);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.libraryproject.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,5 +25,14 @@ public class Author {
 
     public Author(String name) {
         this.name = name;
+    }
+
+    @JsonManagedReference
+    public List<Book> getBookList() {
+        return bookList;
+    }
+
+    public void setBookList(List<Book> bookList) {
+        this.bookList = bookList;
     }
 }
