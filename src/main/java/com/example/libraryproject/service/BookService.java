@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,15 +31,29 @@ public class BookService {
         bookRepository.deleteById(id);
     }
 
-    public Book findBookById(int id) {
-        return bookRepository.findById(id).get();
+    public BookDTO findBookById(int id) {
+        Book book = bookRepository.findById(id).get();
+
+        BookDTO bookDTO = new BookDTO();
+        bookDTO.setTitle(book.getTitle());
+        bookDTO.setISBN(book.getISBN());
+        bookDTO.setPage_nr(book.getPage_nr());
+        bookDTO.setPrice(book.getPrice());
+        bookDTO.setDescription(book.getDescription());
+        bookDTO.setYear_of_release(book.getYear_of_release());
+        bookDTO.setIsRented(book.getIsRented());
+        bookDTO.setPublisher(book.getPublisher().getName());
+        bookDTO.setAuthor(book.getAuthor().getName());
+
+        return bookDTO;
     }
+
 
     public List<Book> getBooksSortedByPrice() {
         return bookRepository.findAll().stream().sorted(Comparator.comparing(Book::getPrice).reversed()).toList();
     }
 
-    public List<Book> findBookByTitle(String name){
+    public List<Book> findBookByTitle(String name) {
         return bookRepository.findBookByTitle(name);
     }
 
@@ -68,10 +81,12 @@ public class BookService {
 
         Book book = new Book();
         book.setTitle(bookDTO.getTitle());
+        book.setISBN(bookDTO.getISBN());
         book.setPage_nr(bookDTO.getPage_nr());
         book.setPrice(bookDTO.getPrice());
         book.setDescription(bookDTO.getDescription());
         book.setYear_of_release(bookDTO.getYear_of_release());
+        book.setIsRented(bookDTO.getIsRented());
         book.setPublisher(publisher);
         book.setAuthor(author);
 
