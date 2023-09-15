@@ -18,10 +18,12 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String title;
+    private String ISBN;
     private int page_nr;
     private double price;
     private String description;
     private LocalDate year_of_release;
+    private Boolean isRented;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "publisher_id")

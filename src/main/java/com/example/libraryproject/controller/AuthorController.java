@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -46,6 +47,11 @@ public class AuthorController {
     public ResponseEntity<Void> deleteById(@PathVariable int id) {
         authorService.removeAuthorById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/getAuthorBook")
+    public Map<String, Integer> getAuthorBookCount() {
+        return authorService.getAuthorBookCount();
     }
 
 }

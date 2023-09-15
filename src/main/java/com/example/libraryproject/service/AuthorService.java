@@ -6,7 +6,9 @@ import com.example.libraryproject.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class AuthorService {
@@ -32,4 +34,17 @@ public class AuthorService {
     public Author findOrCreateAuthor(String name){
         return authorRepository.findByName(name).orElseGet(() -> authorRepository.save(new Author(name)));
     }
+
+    public Map<String, Integer> getAuthorBookCount() {
+        List<Object[]> results = authorRepository.findAuthorBookCount();
+        Map<String, Integer> authorBookCount = new HashMap<>();
+
+        for (Object[] result : results) {
+            String authorName = (String) result[0];
+            Integer bookCount = ((Number) result[1]).intValue();
+            authorBookCount.put(authorName, bookCount);
+        }
+        return authorBookCount;
+    }
+
 }

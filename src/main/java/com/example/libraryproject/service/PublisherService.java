@@ -6,7 +6,9 @@ import com.example.libraryproject.repository.PublisherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class PublisherService {
@@ -30,6 +32,18 @@ public class PublisherService {
 
     public Publisher findOrCreatePublisher(String name){
         return publisherRepository.findByName(name).orElseGet(() -> publisherRepository.save(new Publisher(name)));
+    }
+
+    public Map<String, Integer> getPublisherBookCount() {
+        List<Object[]> results = publisherRepository.findPublisherBookCount();
+        Map<String, Integer> publisherBookCount = new HashMap<>();
+
+        for (Object[] result : results) {
+            String authorName = (String) result[0];
+            Integer bookCount = ((Number) result[1]).intValue();
+            publisherBookCount.put(authorName, bookCount);
+        }
+        return publisherBookCount;
     }
 
 }

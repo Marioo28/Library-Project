@@ -33,12 +33,12 @@ public class BookController {
         return bookService.addBook(bookDTO);
     }
 
-//    @GetMapping("/find/{id}")
-//    public ResponseEntity<BookDTO> findBookById(@PathVariable int id){
-//        Book book = bookService.findBookById(id);
-//        BookDTO bookDTO = modelMapper.map(book, BookDTO.class );
-//        return ResponseEntity.ok().body(bookDTO);
-//    }
+    @GetMapping("/find/{id}")
+    public ResponseEntity<BookDTO> findBookById(@PathVariable int id){
+        BookDTO bookDTO = bookService.findBookById(id);
+//      Book book = modelMapper.map(book, BookDTO.class );
+        return ResponseEntity.ok().body(bookDTO);
+    }
 
     @GetMapping("/getAllBooks")
     public List<BookDTO> getAllBooks() {
