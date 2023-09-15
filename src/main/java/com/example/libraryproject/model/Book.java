@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -50,4 +52,8 @@ public class Book {
     public void setAuthor(Author author) {
         this.author = author;
     }
+
+
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    List<Rental> rentalList = new ArrayList<>();
 }

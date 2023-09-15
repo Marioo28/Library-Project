@@ -48,9 +48,8 @@ public class BookService {
         return bookDTO;
     }
 
-
-    public List<Book> getBooksSortedByPrice() {
-        return bookRepository.findAll().stream().sorted(Comparator.comparing(Book::getPrice).reversed()).toList();
+    public Book findByTitle(String title) {
+        return bookRepository.findByTitle(title).get();
     }
 
     public List<Book> findBookByTitle(String name) {
