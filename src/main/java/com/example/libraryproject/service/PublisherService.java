@@ -1,6 +1,8 @@
 package com.example.libraryproject.service;
 
 import com.example.libraryproject.model.Author;
+import com.example.libraryproject.model.Book;
+import com.example.libraryproject.model.DTO.PublisherDTO;
 import com.example.libraryproject.model.Publisher;
 import com.example.libraryproject.repository.PublisherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class PublisherService {
@@ -46,4 +49,20 @@ public class PublisherService {
         return publisherBookCount;
     }
 
+    public List<PublisherDTO> findAllPublishersDTO(){
+        List<Publisher> publishers = publisherRepository.findAll();
+
+        List<PublisherDTO> publisherDTOList = publishers.stream()
+                .map(publisher -> {
+                    PublisherDTO publisherDTO = new PublisherDTO();
+                    publisherDTO.setName(publisher.getName());
+                    List<String> bookNames = publisher.getBooks()
+                            .stream().map(Book::getTitle)
+                            .collect(Collectors.toList());
+                    publisherDTO.setBookList(bookNames);
+                    return publisherDTO;
+                }).collect(Collectors.toList());
+
+        return publisherDTOList;
+    }
 }

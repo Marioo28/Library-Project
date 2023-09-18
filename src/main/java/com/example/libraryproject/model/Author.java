@@ -27,6 +27,12 @@ public class Author {
         this.name = name;
     }
 
+
+    public Author(String name, List<Book> bookList) {
+        this.name = name;
+        this.bookList = bookList;
+    }
+
     @JsonManagedReference
     public List<Book> getBookList() {
         return bookList;

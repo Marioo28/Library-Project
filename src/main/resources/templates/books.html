@@ -50,6 +50,7 @@
             <th>Publisher</th>
             <th>Price</th>
             <th>ISBN</th>
+            <th>Rented?</th>
         </tr>
         </thead>
         <tr th:each="book:${books}">
@@ -60,8 +61,44 @@
             <td th:text="${book.publisher}"></td>
             <td th:text="${book.price}"></td>
             <td th:text="${book.ISBN}"></td>
+            <td th:text="${book.isRented}"></td>
         </tr>
     </table>
+</div>
+
+<section>
+    <h2>Add a new Book</h2>
+    <form action="#" th:action="@{/api/books}" th:object="${book}" method="post">
+        <div>
+            <label for="title">Title: </label>
+            <input type="text" id="title" name="title" th:field="*{title}" required>
+        </div>
+        <div>
+            <label for="year_of_release">Release year: </label>
+            <input type="date" id="year_of_release" name="year_of_release" th:field="*{year_of_release}"  required>
+        </div>
+        <div>
+            <label for="page_nr">Page numbers: </label>
+            <input type="number" id="page_nr" name="page_nr" th:field="*{page_nr}"  required>
+        </div>
+        <div>
+            <label for="price">Price: </label>
+            <input type="number" id="price" name="price" th:field="*{price}"  required>
+        </div>
+        <div>
+            <label for="ISBN">ISBN: </label>
+            <input type="text" id="ISBN" name="ISBN" th:field="*{ISBN}"  required>
+        </div>
+        <div>
+            <label for="isRented">isRented: </label>
+            <input type="text" id="isRented" name="isRented" th:field="*{isRented}" >
+        </div>
+
+        <div>
+            <button class="btn btn-primary" type="submit">Add book</button>
+        </div>
+    </form>
+</section>
 
 </body>
 </html>

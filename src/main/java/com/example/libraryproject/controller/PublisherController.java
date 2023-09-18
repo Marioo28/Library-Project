@@ -29,7 +29,7 @@ public class PublisherController {
 
     @GetMapping()
     public String showPublishers(final ModelMap modelMap) {
-        List<Publisher> publishers = publisherService.findAllPublishers();
+        List<PublisherDTO> publishers = publisherService.findAllPublishersDTO();
         modelMap.addAttribute("publishers", publishers);
         return "publishers";
     }

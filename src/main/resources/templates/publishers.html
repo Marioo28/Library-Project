@@ -45,13 +45,16 @@
         <thead>
         <tr>
             <th>Publisher Name</th>
+            <th>Books</th>
         </tr>
         </thead>
         <tr th:each="publisher:${publishers}">
             <td th:text="${publisher.name}"></td>
+            <td th:text="${publisher.bookList}"></td>
+
 
         </tr>
     </table>
-
+</div>
 </body>
 </html>

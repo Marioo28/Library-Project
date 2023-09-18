@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,10 +34,20 @@ public class BookController {
 
     @GetMapping()
     public String showBooks(final ModelMap modelMap) {
-        List<BookDTO> books =  bookService.findAllBooks();
+        List<BookDTO> books = bookService.findAllBooks();
         modelMap.addAttribute("books", books);
+        modelMap.addAttribute("book", new Book());
         return "books";
     }
+
+    @PostMapping
+    public String addBook(@ModelAttribute Book book) {
+        Book savedBook = bookService.saveBook(book);
+
+
+        return "homePage";
+    }
+
 
     @PostMapping("/addBook")
     public BookDTO saveBook(@RequestBody BookDTO bookDTO) {
@@ -44,7 +55,7 @@ public class BookController {
     }
 
     @GetMapping("/find/{id}")
-    public ResponseEntity<BookDTO> findBookById(@PathVariable int id){
+    public ResponseEntity<BookDTO> findBookById(@PathVariable int id) {
         BookDTO bookDTO = bookService.findBookById(id);
 //      Book book = modelMapper.map(book, BookDTO.class );
         return ResponseEntity.ok().body(bookDTO);

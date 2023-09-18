@@ -26,6 +26,10 @@ public class Publisher {
         this.name = name;
     }
 
+    public Publisher(String name, List<Book> books) {
+        this.name = name;
+        this.books = books;
+    }
 
     @JsonManagedReference
     public List<Book> getBooks() {
