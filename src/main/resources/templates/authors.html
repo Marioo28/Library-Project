@@ -40,25 +40,21 @@
 <h1>Authors page</h1>
 
 <div class="container mt-5">
-    <h2>Available Authors</h2>
+    <h2>Available Books</h2>
     <table class="table table-striped mt-4">
         <thead>
         <tr>
-            <th></th>
-
+            <th>Author Name</th>
+            <th>Books</th>
+        </tr>
+        </thead>
+        <tr th:each="author:${authors}">
+            <td th:text="${author.name}"></td>
+            <td th:text="${author.bookList}"></td>
 
 
         </tr>
-
-
-
-
-
-
-        </thead>
     </table>
 
-
-</div>
 </body>
 </html>

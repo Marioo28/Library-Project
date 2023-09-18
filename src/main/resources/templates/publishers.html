@@ -38,5 +38,20 @@
 </nav>
 
 <h1>Publishers page</h1>
+
+<div class="container mt-5">
+    <h2>Publishers</h2>
+    <table class="table table-striped mt-4">
+        <thead>
+        <tr>
+            <th>Publisher Name</th>
+        </tr>
+        </thead>
+        <tr th:each="publisher:${publishers}">
+            <td th:text="${publisher.name}"></td>
+
+        </tr>
+    </table>
+
 </body>
 </html>

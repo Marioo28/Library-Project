@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,7 +28,9 @@ public class PublisherController {
 
 
     @GetMapping()
-    public String showPublishers() {
+    public String showPublishers(final ModelMap modelMap) {
+        List<Publisher> publishers = publisherService.findAllPublishers();
+        modelMap.addAttribute("publishers", publishers);
         return "publishers";
     }
 

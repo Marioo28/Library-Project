@@ -28,7 +28,9 @@ public class AuthorController {
 
 
     @GetMapping()
-    public String showAuthors() {
+    public String showAuthors(final ModelMap modelMap) {
+        List<AuthorDTO> authors = authorService.findAllAuthorsDTO();
+        modelMap.addAttribute("authors", authors);
         return "authors";
     }
 
