@@ -8,12 +8,14 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestController
+@Controller
+//@RestController
 @RequestMapping("/api/books")
 public class BookController {
 
@@ -27,6 +29,11 @@ public class BookController {
         this.bookService = bookService;
     }
 
+
+    @GetMapping()
+    public String showBooks() {
+        return "books";
+    }
 
     @PostMapping("/addBook")
     public BookDTO saveBook(@RequestBody BookDTO bookDTO) {

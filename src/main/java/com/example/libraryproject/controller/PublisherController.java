@@ -9,19 +9,27 @@ import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@RestController
+@Controller
+//@RestController
 @RequestMapping("/api/publishers")
 public class PublisherController {
     @Autowired
     private PublisherService publisherService;
     @Autowired
     private ModelMapper modelMapper;
+
+
+    @GetMapping()
+    public String showPublishers() {
+        return "publishers";
+    }
 
     @PostMapping("/savePublisher")
     public Publisher savePublisher(@RequestBody Publisher publisher) {

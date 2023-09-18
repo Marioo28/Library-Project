@@ -27,19 +27,25 @@ public class AuthorController {
     private ModelMapper modelMapper;
 
 
+    @GetMapping()
+    public String showAuthors() {
+        return "authors";
+    }
+
+
     @GetMapping("/create")
-    public String showAuthorDTO(final ModelMap modelMap){
+    public String showAuthorDTO(final ModelMap modelMap) {
 
         List<AuthorDTO> authorsDTO = authorService.findAllAuthors().stream()
                 .map(author -> modelMapper.map(author, AuthorDTO.class))
                 .collect(Collectors.toList());
-        modelMap.addAttribute("authorDTO",new AuthorDTO());
+        modelMap.addAttribute("authorDTO", new AuthorDTO());
         modelMap.addAttribute("elements", authorsDTO);
         return "welcome";
     }
 
     @PostMapping("/create")
-    public String handleNewAuthor(@Valid @ModelAttribute("authorDTO") final AuthorDTO authorDTO){
+    public String handleNewAuthor(@Valid @ModelAttribute("authorDTO") final AuthorDTO authorDTO) {
         return "redirect:/confirmation";
     }
 
@@ -50,7 +56,7 @@ public class AuthorController {
     }
 
     @GetMapping("/find/{id}")
-    public ResponseEntity<AuthorDTO> findAuthorById(@PathVariable int id){
+    public ResponseEntity<AuthorDTO> findAuthorById(@PathVariable int id) {
         Author author = authorService.findAuthorById(id);
         AuthorDTO authorDTO = modelMapper.map(author, AuthorDTO.class);
         return ResponseEntity.ok().body(authorDTO);
