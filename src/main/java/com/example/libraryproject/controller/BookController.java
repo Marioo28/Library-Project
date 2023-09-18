@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,7 +32,9 @@ public class BookController {
 
 
     @GetMapping()
-    public String showBooks() {
+    public String showBooks(final ModelMap modelMap) {
+        List<BookDTO> books =  bookService.findAllBooks();
+        modelMap.addAttribute("books", books);
         return "books";
     }
 
