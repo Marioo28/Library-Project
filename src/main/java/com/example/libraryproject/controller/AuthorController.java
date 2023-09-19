@@ -29,9 +29,25 @@ public class AuthorController {
     public String showAuthors(final ModelMap modelMap) {
         List<AuthorDTO> authors = authorService.findAllAuthorsDTO();
         modelMap.addAttribute("authors", authors);
+        modelMap.addAttribute("author",new AuthorDTO());
         return "authors";
     }
-//
+
+    @GetMapping("/addAuthor")
+    public String showCreateForm(Author author){
+        return "add-author";
+    }
+
+    @RequestMapping("/add-author")
+    public String createAuthor(Author author,BindingResult bindingResult, Model model){
+        if (bindingResult.hasErrors()){
+            return "add-author";
+        }
+
+        authorService.saveAuthor(author);
+        model.addAttribute("author", authorService.findAllAuthors());
+        return "redirect:/api/authors";
+    }
 
 //    @GetMapping("/create")
 //    public String showAuthorDTO(final ModelMap modelMap) {
@@ -86,6 +102,7 @@ public class AuthorController {
             return "update-author";
         }
         authorService.saveAuthor(author);
+
         model.addAttribute("author", authorService.findAllAuthors());
         return "redirect:/authors";
     }

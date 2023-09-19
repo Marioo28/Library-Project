@@ -3,6 +3,7 @@ package com.example.libraryproject.service;
 import com.example.libraryproject.model.Author;
 import com.example.libraryproject.model.Book;
 import com.example.libraryproject.model.DTO.PublisherDTO;
+import com.example.libraryproject.model.DTO.PublisherDTO2;
 import com.example.libraryproject.model.Publisher;
 import com.example.libraryproject.repository.PublisherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,5 +66,15 @@ public class PublisherService {
                 }).collect(Collectors.toList());
 
         return publisherDTOList;
+    }
+    public List<PublisherDTO2> findAllPublishersDTO2(){
+        List<Publisher> publishers = publisherRepository.findAll();
+
+        List<PublisherDTO2> publisherDTO2List = publishers.stream()
+                .map(publisher -> {
+                    PublisherDTO2 publisherDTO2 = new PublisherDTO2();
+                    publisherDTO2.setId(publisher.getId());
+                    return publisherDTO2;}).toList();
+        return publisherDTO2List;
     }
 }

@@ -11,6 +11,19 @@
 </head>
 <body>
     <div th:insert="~{fragments/header :: header}"></div>
+    <div class="container my-2">
+<!--        <div class="card">-->
+<!--            <div class="card-body">-->
+<!--                <div th:switch="${authors}" class="container my-5">-->
+                    <p class="my-5">
+                        <a href="/api/authors/addAuthor" th:href="@{/api/authors/addAuthor}" class="btn btn-primary">
+                            <i class="fas fa-user-plus ml-2">  Add Author </i></a>
+                    </p>
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+    </div>
+
 
 <div class="container mt-5">
     <h2>Authors</h2>

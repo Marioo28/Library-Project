@@ -11,19 +11,17 @@
 <div th:insert="~{fragments/header :: header}"></div>
 
 <div class="container my-5">
-    <h3>Update Author</h3>
+    <h3>Add Publisher</h3>
     <div class="card">
         <div class="card-body">
             <div class="col-md-10">
-                <form action="#" th:action="@{/api/authors/update-author/{id}(id=*{author.id})}" th:object="${author}" method="post">
+                <form action="#" th:action="@{/api/publishers/add-publisher}" th:object="${publisher}" method="post">
                     <div class="row">
 
                         <div class="form-group col-md-8">
-                            <label for="name" class="col-form-label">Author Name</label>
-                            <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Author Name" />
+                            <label for="name" class="col-form-label">Publisher Name</label>
+                            <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Publisher Name" />
                         </div>
-
-
                         <div class="col-md-6">
                             <input type="submit" class="btn btn-primary" value=" Submit ">
                         </div>
@@ -34,6 +32,5 @@
         </div>
     </div>
 </div>
-
 </body>
 </html>

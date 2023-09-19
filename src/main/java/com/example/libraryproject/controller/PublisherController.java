@@ -3,18 +3,18 @@ package com.example.libraryproject.controller;
 import com.example.libraryproject.model.DTO.PublisherDTO;
 import com.example.libraryproject.model.Publisher;
 import com.example.libraryproject.service.PublisherService;
-import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Controller
 //@RestController
@@ -30,9 +30,24 @@ public class PublisherController {
     public String showPublishers(final ModelMap modelMap) {
         List<PublisherDTO> publishers = publisherService.findAllPublishersDTO();
         modelMap.addAttribute("publishers", publishers);
+        modelMap.addAttribute("publisher", new PublisherDTO());
         return "publishers";
     }
 
+    @GetMapping("/addPublisher")
+    public String showCreateForm(Publisher publisher){
+        return "add-publisher";
+    }
+
+    @RequestMapping("/add-publisher")
+    public String createPublisher(Publisher publisher, BindingResult bindingResult, Model model){
+        if (bindingResult.hasErrors()){
+            return "add-publisher";
+        }
+        publisherService.savePublisher(publisher);
+        model.addAttribute("publisher", publisherService.findAllPublishers());
+        return "redirect:/api/publishers";
+    }
 //    @PostMapping("/savePublisher")
 //    public Publisher savePublisher(@RequestBody Publisher publisher) {
 //        return publisherService.savePublisher(publisher);
@@ -53,7 +68,7 @@ public class PublisherController {
 //    }
 
 
-    @RequestMapping("/deleteAuthor/{id}")
+    @RequestMapping("/deletePublisher/{id}")
     public String removeById(@PathVariable("id") int id, Model model) {
         publisherService.removePublisherById(id);
         List<PublisherDTO> publishers = publisherService.findAllPublishersDTO();
