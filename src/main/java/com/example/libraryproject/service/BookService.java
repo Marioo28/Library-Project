@@ -58,6 +58,24 @@ public class BookService {
     }
 
 
+    public BookDTO findBookByTitleDTO(String name){
+        Book book = bookRepository.findByTitle(name);
+
+        BookDTO bookDTO = new BookDTO();
+        bookDTO.setTitle(book.getTitle());
+        bookDTO.setISBN(book.getISBN());
+        bookDTO.setPage_nr(book.getPage_nr());
+        bookDTO.setPrice(book.getPrice());
+        bookDTO.setDescription(book.getDescription());
+        bookDTO.setYear_of_release(book.getYear_of_release());
+        bookDTO.setIsRented(book.getIsRented());
+        bookDTO.setPublisher(book.getPublisher().getName());
+        bookDTO.setAuthor(book.getAuthor().getName());
+
+        return bookDTO;
+    }
+
+
     public List<BookDTO> findAllBooks() {
         List<Book> books = bookRepository.findAll();
 

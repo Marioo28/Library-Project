@@ -36,16 +36,25 @@ public class BookController {
     public String showBooks(final ModelMap modelMap) {
         List<BookDTO> books = bookService.findAllBooks();
         modelMap.addAttribute("books", books);
-        modelMap.addAttribute("book", new Book());
+        modelMap.addAttribute("book", new BookDTO());
+        modelMap.addAttribute("bookDTO", new BookDTO());
+
         return "books";
     }
 
     @PostMapping
-    public String addBook(@ModelAttribute Book book) {
-        Book savedBook = bookService.saveBook(book);
-
+    public String addBook(@ModelAttribute BookDTO book) {
+        BookDTO savedBook = bookService.addBook(book);
 
         return "homePage";
+    }
+
+    @GetMapping("/search")
+    public String getBookByTitle(@RequestParam("searchTerm") String searchTerm, final Model model) {
+        BookDTO bookDTO = bookService.findBookByTitleDTO(searchTerm);
+        model.addAttribute("bookDTO", bookDTO);
+        return "searchResults";
+
     }
 
 
