@@ -31,6 +31,13 @@ public class BookService {
         bookRepository.deleteById(id);
     }
 
+    public List<BookDTO> searchBooks(String keyword) {
+        if (keyword != null) {
+            return bookRepository.search(keyword);
+        }
+        return findAllBooks();
+    }
+
     public BookDTO findBookById(int id) {
         Book book = bookRepository.findById(id).get();
 
@@ -101,6 +108,30 @@ public class BookService {
 
         return bookDTOs;
     }
+
+//    public List<BookDTO> findAllBooksDTO() {
+//        List<BookDTO> booksDTO = bookRepository.findAllDTO();
+//
+//        // Convert Book entities to BookDTOs
+//        List<Book> bookDTOs = books.stream()
+//                .map(book -> {
+//                    BookDTO bookDTO = new BookDTO(book);
+//                    bookDTO.setId(book.getId());
+//                    bookDTO.setTitle(book.getTitle());
+//                    bookDTO.setISBN(book.getISBN());
+//                    bookDTO.setPage_nr(book.getPage_nr());
+//                    bookDTO.setPrice(book.getPrice());
+//                    bookDTO.setDescription(book.getDescription());
+//                    bookDTO.setYear_of_release(book.getYear_of_release());
+//                    bookDTO.setIsRented(book.getIsRented());
+//                    bookDTO.setPublisher(book.getPublisher().getName());
+//                    bookDTO.setAuthor(book.getAuthor().getName());
+//                    return bookDTO;
+//                })
+//                .collect(Collectors.toList());
+//
+//        return bookDTOs;
+//    }
 
 
     public BookDTO addBook(BookDTO bookDTO) {

@@ -1,12 +1,10 @@
 package com.example.libraryproject.controller;
 
-import com.example.libraryproject.model.Book;
 import com.example.libraryproject.model.DTO.BookDTO;
 import com.example.libraryproject.service.BookService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -53,6 +51,16 @@ public class BookController {
         model.addAttribute("bookDTO", bookDTO);
         return "searchResults";
 
+    }
+
+
+    @RequestMapping("/searchBook")
+    public String searchBook(@Param("keyword") String keyword, Model model) {
+        final List<BookDTO> books = bookService.searchBooks(keyword);
+
+        model.addAttribute("books", books);
+        model.addAttribute("keyword", keyword);
+        return "list-books";
     }
 
 
