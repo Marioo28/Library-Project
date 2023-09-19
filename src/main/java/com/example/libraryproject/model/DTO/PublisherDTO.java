@@ -6,6 +6,7 @@ import java.util.List;
 
 @Data
 public class PublisherDTO {
+    private int id;
     private String name;
     private List<String> bookList;
 }

@@ -35,6 +35,7 @@ public class BookService {
         Book book = bookRepository.findById(id).get();
 
         BookDTO bookDTO = new BookDTO();
+        bookDTO.setId(bookDTO.getId());
         bookDTO.setTitle(book.getTitle());
         bookDTO.setISBN(book.getISBN());
         bookDTO.setPage_nr(book.getPage_nr());
@@ -49,9 +50,9 @@ public class BookService {
     }
 
 
-    public List<Book> getBooksSortedByPrice() {
-        return bookRepository.findAll().stream().sorted(Comparator.comparing(Book::getPrice).reversed()).toList();
-    }
+//    public List<Book> getBooksSortedByPrice() {
+//        return bookRepository.findAll().stream().sorted(Comparator.comparing(Book::getPrice).reversed()).toList();
+//    }
 
     public List<Book> findBookByTitle(String name) {
         return bookRepository.findBookByTitle(name);
@@ -62,6 +63,7 @@ public class BookService {
         Book book = bookRepository.findByTitle(name);
 
         BookDTO bookDTO = new BookDTO();
+        bookDTO.setId(book.getId());
         bookDTO.setTitle(book.getTitle());
         bookDTO.setISBN(book.getISBN());
         bookDTO.setPage_nr(book.getPage_nr());
@@ -83,6 +85,14 @@ public class BookService {
         List<BookDTO> bookDTOs = books.stream()
                 .map(book -> {
                     BookDTO bookDTO = new BookDTO(book);
+                    bookDTO.setId(book.getId());
+                    bookDTO.setTitle(book.getTitle());
+                    bookDTO.setISBN(book.getISBN());
+                    bookDTO.setPage_nr(book.getPage_nr());
+                    bookDTO.setPrice(book.getPrice());
+                    bookDTO.setDescription(book.getDescription());
+                    bookDTO.setYear_of_release(book.getYear_of_release());
+                    bookDTO.setIsRented(book.getIsRented());
                     bookDTO.setPublisher(book.getPublisher().getName());
                     bookDTO.setAuthor(book.getAuthor().getName());
                     return bookDTO;

@@ -16,5 +16,6 @@ public interface AuthorRepository extends JpaRepository<Author, Integer> {
     @Query(value = "SELECT a.name, count(b.id) FROM Author a LEFT JOIN a.bookList b GROUP BY a.name")
     List<Object[]> findAuthorBookCount();
 
+    Author save(AuthorDTO authorDTO);
 
 }

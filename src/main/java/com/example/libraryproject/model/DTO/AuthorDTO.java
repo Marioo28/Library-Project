@@ -11,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AuthorDTO {
+    private int id;
     @NotNull(message = "no null fields")
     private String name;
     private List<String> bookList;

@@ -55,6 +55,7 @@ public class PublisherService {
         List<PublisherDTO> publisherDTOList = publishers.stream()
                 .map(publisher -> {
                     PublisherDTO publisherDTO = new PublisherDTO();
+                    publisherDTO.setId(publisher.getId());
                     publisherDTO.setName(publisher.getName());
                     List<String> bookNames = publisher.getBooks()
                             .stream().map(Book::getTitle)

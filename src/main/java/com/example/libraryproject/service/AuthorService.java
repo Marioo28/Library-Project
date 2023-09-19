@@ -21,6 +21,9 @@ public class AuthorService {
     public Author saveAuthor(Author author) {
         return authorRepository.save(author);
     }
+    public Author save(AuthorDTO authorDTO) {
+        return authorRepository.save(authorDTO);
+    }
 
     public void removeAuthorById(int id) {
         authorRepository.deleteById(id);
@@ -38,17 +41,17 @@ public class AuthorService {
         return authorRepository.findByName(name).orElseGet(() -> authorRepository.save(new Author(name)));
     }
 
-    public Map<String, Integer> getAuthorBookCount() {
-        List<Object[]> results = authorRepository.findAuthorBookCount();
-        Map<String, Integer> authorBookCount = new HashMap<>();
-
-        for (Object[] result : results) {
-            String authorName = (String) result[0];
-            Integer bookCount = ((Number) result[1]).intValue();
-            authorBookCount.put(authorName, bookCount);
-        }
-        return authorBookCount;
-    }
+//    public Map<String, Integer> getAuthorBookCount() {
+//        List<Object[]> results = authorRepository.findAuthorBookCount();
+//        Map<String, Integer> authorBookCount = new HashMap<>();
+//
+//        for (Object[] result : results) {
+//            String authorName = (String) result[0];
+//            Integer bookCount = ((Number) result[1]).intValue();
+//            authorBookCount.put(authorName, bookCount);
+//        }
+//        return authorBookCount;
+//    }
 
 
     public List<AuthorDTO> findAllAuthorsDTO(){
@@ -57,6 +60,7 @@ public class AuthorService {
         List<AuthorDTO> authorDTOList = authors.stream()
                 .map(author -> {
                     AuthorDTO authorDTO = new AuthorDTO();
+                    authorDTO.setId(author.getId());
                     authorDTO.setName(author.getName());
                     List<String> bookNames = author.getBookList()
                                     .stream().map(Book::getTitle)
