@@ -65,6 +65,7 @@ public class BookController {
         return "redirect:/api/books";
     }
 
+    //method down in book.html
     @GetMapping("/search")
     public String getBookByTitle(@RequestParam("searchTerm") String searchTerm, final Model model) {
         BookDTO bookDTO = bookService.findBookByTitleDTO(searchTerm);
@@ -73,6 +74,7 @@ public class BookController {
 
     }
 
+    //method in header
     @RequestMapping("/searchBook")
     public String searchBook(@Param("keyword") String keyword, Model model) {
         final List<BookDTO> books = bookService.searchBooks(keyword);
@@ -85,8 +87,8 @@ public class BookController {
     @RequestMapping("/deleteBook/{id}")
     public String removeById(@PathVariable("id") int id, Model model) {
         bookService.removeBookById(id);
-        List<BookDTO> books = bookService.findAllBooks();
-        model.addAttribute("books", books);
+//        List<BookDTO> books = bookService.findAllBooks();
+        model.addAttribute("books", bookService.findAllBooks());
         return "books";
     }
 

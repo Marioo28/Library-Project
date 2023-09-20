@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet"href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <link rel="stylesheet"href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>BookLibrary</title>
 </head>
 <body>
-<nav th:fragment= "header"  class="navbar navbar-expand-lg " style="background-color: #d5d86f">
+<nav th:fragment="header" class="navbar navbar-expand-lg " style="background-color: #d5d86f">
     <div class="container-fluid">
         <a class="navbar-brand" href="/" th:href="@{/}">BOOK LIBRARY</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
@@ -32,8 +32,9 @@
             <span class="navbar-text">
 
     <form th:action="@{api/books/searchBook}" class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" name= "keyword" id = "keyword" type="text" placeholder="Search a book" aria-label="Search" th:value="${keyword}">
-        <input class="btn btn-outline-success active my-2 my-sm-0" type="submit" value="Search" />
+        <input class="form-control mr-sm-2" name="keyword" id="keyword" type="text" placeholder="Search a book"
+               aria-label="Search" th:value="${keyword}">
+        <input class="btn btn-outline-success active my-2 my-sm-0" type="submit" value="Search"/>
     </form>
       </span>
         </div>

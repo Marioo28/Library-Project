@@ -54,7 +54,7 @@ public class AuthorController {
     public String showUpdateForm(@PathVariable("id") int id, Model model) {
         Author author = authorService.findAuthorById(id);
 
-        model.addAttribute("author", author);
+        model.addAttribute("authorForUpdate", author);
 
         return "update-author";
     }
