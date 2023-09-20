@@ -8,7 +8,6 @@ import com.example.libraryproject.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -66,7 +65,7 @@ public class BookService {
     }
 
 
-    public BookDTO findBookByTitleDTO(String name){
+    public BookDTO findBookByTitleDTO(String name) {
         Book book = bookRepository.findByTitle(name);
 
         BookDTO bookDTO = new BookDTO();

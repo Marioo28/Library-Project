@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>BookLibrary</title>
+</head>
+<body>
+<div th:insert="~{fragments/header :: header}"></div>
+
+<div class="container my-5">
+    <h3>Add Book</h3>
+    <div class="card">
+        <div class="card-body">
+            <div class="col-md-10">
+                <form action="#" th:action="@{/api/books/add-book}" th:object="${bookDTO}" method="post">
+                    <div class="row">
+
+                        <div class="form-group row">
+                            <label for="title" class="col-md-3 col-form-label">Book Title:</label>
+                            <div class="col-md-9">
+                                <input type="text" id="title" name="title" th:field="*{title}"
+                                        class="form-control" placeholder="Book Name" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="year_of_release" class="col-md-3 col-form-label">Release year:</label>
+                            <div class="col-md-9">
+                                <input type="date" id="year_of_release" name="year_of_release" th:field="*{year_of_release}"
+                                       min="1950-01-01" max="2023-08-31" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="page_nr" class="col-md-3 col-form-label">Page numbers:</label>
+                            <div class="col-md-9">
+                                <input type="number" id="page_nr" name="page_nr" th:field="*{page_nr}" min="1"
+                                       class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="price" class="col-md-3 col-form-label">Price:</label>
+                            <div class="col-md-9">
+                                <input type="number" id="price" name="price" th:field="*{price}" step="0.01" min="1"
+                                       class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="ISBN" class="col-md-3 col-form-label">ISBN:</label>
+                            <div class="col-md-9">
+                                <input type="text" id="ISBN" name="ISBN" th:field="*{ISBN}" min="1" class="form-control"
+                                       placeholder="ISBN" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="isRented" class="col-md-3 col-form-label">isRented:</label>
+                            <div class="col-md-9">
+                                <select id="isRented" name="isRented" th:field="*{isRented}" class="form-control" required>
+                                    <option value="">Choose an option</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="author" class="col-md-3 col-form-label">Author:</label>
+                            <div class="col-md-9">
+                                <input type="text" id="author" name="author" th:field="*{author}" class="form-control"
+                                       placeholder="Author" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="publisher" class="col-md-3 col-form-label">Publisher:</label>
+                            <div class="col-md-9">
+                                <input type="text" id="publisher" name="publisher" th:field="*{publisher}"
+                                       class="form-control" placeholder="Publisher" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <input type="submit" class="btn btn-primary" value=" Submit ">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

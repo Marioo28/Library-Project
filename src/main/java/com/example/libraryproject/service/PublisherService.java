@@ -1,9 +1,7 @@
 package com.example.libraryproject.service;
 
-import com.example.libraryproject.model.Author;
 import com.example.libraryproject.model.Book;
 import com.example.libraryproject.model.DTO.PublisherDTO;
-import com.example.libraryproject.model.DTO.PublisherDTO2;
 import com.example.libraryproject.model.Publisher;
 import com.example.libraryproject.repository.PublisherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +17,10 @@ public class PublisherService {
     @Autowired
     private PublisherRepository publisherRepository;
 
-    public Publisher savePublisher(Publisher publisher){
+    public Publisher savePublisher(Publisher publisher) {
         return publisherRepository.save(publisher);
     }
+
     public void removePublisherById(int id) {
         publisherRepository.deleteById(id);
     }
@@ -30,11 +29,11 @@ public class PublisherService {
         return publisherRepository.findById(id).get();
     }
 
-    public List<Publisher> findAllPublishers(){
+    public List<Publisher> findAllPublishers() {
         return publisherRepository.findAll();
     }
 
-    public Publisher findOrCreatePublisher(String name){
+    public Publisher findOrCreatePublisher(String name) {
         return publisherRepository.findByName(name).orElseGet(() -> publisherRepository.save(new Publisher(name)));
     }
 
@@ -50,7 +49,7 @@ public class PublisherService {
         return publisherBookCount;
     }
 
-    public List<PublisherDTO> findAllPublishersDTO(){
+    public List<PublisherDTO> findAllPublishersDTO() {
         List<Publisher> publishers = publisherRepository.findAll();
 
         List<PublisherDTO> publisherDTOList = publishers.stream()
@@ -67,14 +66,5 @@ public class PublisherService {
 
         return publisherDTOList;
     }
-    public List<PublisherDTO2> findAllPublishersDTO2(){
-        List<Publisher> publishers = publisherRepository.findAll();
 
-        List<PublisherDTO2> publisherDTO2List = publishers.stream()
-                .map(publisher -> {
-                    PublisherDTO2 publisherDTO2 = new PublisherDTO2();
-                    publisherDTO2.setId(publisher.getId());
-                    return publisherDTO2;}).toList();
-        return publisherDTO2List;
-    }
 }

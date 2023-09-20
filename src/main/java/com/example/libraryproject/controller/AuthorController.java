@@ -9,10 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 //@RestController
@@ -29,24 +30,53 @@ public class AuthorController {
     public String showAuthors(final ModelMap modelMap) {
         List<AuthorDTO> authors = authorService.findAllAuthorsDTO();
         modelMap.addAttribute("authors", authors);
-        modelMap.addAttribute("author",new AuthorDTO());
+        modelMap.addAttribute("author", new AuthorDTO());
         return "authors";
     }
 
     @GetMapping("/addAuthor")
-    public String showCreateForm(Author author){
+    public String showCreateForm(Author author) {
         return "add-author";
     }
 
     @RequestMapping("/add-author")
-    public String createAuthor(Author author,BindingResult bindingResult, Model model){
-        if (bindingResult.hasErrors()){
+    public String createAuthor(Author author, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
             return "add-author";
         }
 
         authorService.saveAuthor(author);
         model.addAttribute("author", authorService.findAllAuthors());
         return "redirect:/api/authors";
+    }
+
+    @GetMapping("/updateAuthor/{id}")
+    public String showUpdateForm(@PathVariable("id") int id, Model model) {
+        Author author = authorService.findAuthorById(id);
+
+        model.addAttribute("author", author);
+
+        return "update-author";
+    }
+
+    @RequestMapping("/update-author/{id}")
+    public String updateAuthor(@PathVariable("id") int id, Author author, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            author.setId(id);
+            return "update-author";
+        }
+        authorService.saveAuthor(author);
+
+        model.addAttribute("author", authorService.findAllAuthors());
+        return "redirect:/authors";
+    }
+
+    @RequestMapping("/deleteAuthor/{id}")
+    public String removeById(@PathVariable("id") int id, Model model) {
+        authorService.removeAuthorById(id);
+        List<AuthorDTO> authors = authorService.findAllAuthorsDTO();
+        model.addAttribute("authors", authors);
+        return "authors";
     }
 
 //    @GetMapping("/create")
@@ -85,35 +115,6 @@ public class AuthorController {
 //                .collect(Collectors.toList());
 //    }
 
-
-    @GetMapping("/updateAuthor/{id}")
-    public String showUpdateForm(@PathVariable("id") int id, Model model) {
-        Author author = authorService.findAuthorById(id);
-
-        model.addAttribute("author", author);
-
-        return "update-author";
-    }
-
-    @RequestMapping("/update-author/{id}")
-    public String updateAuthor(@PathVariable("id") int id, Author author, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            author.setId(id);
-            return "update-author";
-        }
-        authorService.saveAuthor(author);
-
-        model.addAttribute("author", authorService.findAllAuthors());
-        return "redirect:/authors";
-    }
-
-    @RequestMapping("/deleteAuthor/{id}")
-    public String removeById(@PathVariable("id") int id, Model model) {
-        authorService.removeAuthorById(id);
-        List<AuthorDTO> authors = authorService.findAllAuthorsDTO();
-        model.addAttribute("authors", authors);
-        return "authors";
-    }
 
 //    @DeleteMapping("/delete-Author/{id}")
 //    public ResponseEntity<Void> deleteById(@PathVariable int id) {

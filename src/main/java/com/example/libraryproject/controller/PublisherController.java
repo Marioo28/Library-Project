@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
-import java.util.Map;
 
 @Controller
 //@RestController
@@ -35,18 +34,26 @@ public class PublisherController {
     }
 
     @GetMapping("/addPublisher")
-    public String showCreateForm(Publisher publisher){
+    public String showCreateForm(Publisher publisher) {
         return "add-publisher";
     }
 
     @RequestMapping("/add-publisher")
-    public String createPublisher(Publisher publisher, BindingResult bindingResult, Model model){
-        if (bindingResult.hasErrors()){
+    public String createPublisher(Publisher publisher, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
             return "add-publisher";
         }
         publisherService.savePublisher(publisher);
         model.addAttribute("publisher", publisherService.findAllPublishers());
         return "redirect:/api/publishers";
+    }
+
+    @RequestMapping("/deletePublisher/{id}")
+    public String removeById(@PathVariable("id") int id, Model model) {
+        publisherService.removePublisherById(id);
+        List<PublisherDTO> publishers = publisherService.findAllPublishersDTO();
+        model.addAttribute("publishers", publishers);
+        return "publishers";
     }
 //    @PostMapping("/savePublisher")
 //    public Publisher savePublisher(@RequestBody Publisher publisher) {
@@ -68,14 +75,6 @@ public class PublisherController {
 //    }
 
 
-    @RequestMapping("/deletePublisher/{id}")
-    public String removeById(@PathVariable("id") int id, Model model) {
-        publisherService.removePublisherById(id);
-        List<PublisherDTO> publishers = publisherService.findAllPublishersDTO();
-        model.addAttribute("publishers", publishers);
-        return "publishers";
-    }
-
 //    @Transactional
 //    @DeleteMapping("/delete/{id}")
 //    public ResponseEntity<Void> removeById(@PathVariable int id) {
@@ -83,8 +82,8 @@ public class PublisherController {
 //        return ResponseEntity.noContent().build();
 //    }
 
-    @GetMapping("/getPublisherBook")
-    public Map<String, Integer> getAuthorBookCount() {
-        return publisherService.getPublisherBookCount();
-    }
+//    @GetMapping("/getPublisherBook")
+//    public Map<String, Integer> getAuthorBookCount() {
+//        return publisherService.getPublisherBookCount();
+//    }
 }

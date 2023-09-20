@@ -12,6 +12,19 @@
 <body>
 <div th:insert="~{fragments/header :: header}"></div>
 
+<div class="container my-2">
+    <!--        <div class="card">-->
+    <!--            <div class="card-body">-->
+    <!--                <div th:switch="${authors}" class="container my-5">-->
+    <p class="my-5">
+        <a href="/api/books/addBook" th:href="@{/api/books/addBook}" class="btn btn-primary">
+            <i class="fas fa-user-plus ml-2"> Add Book </i></a>
+    </p>
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--        </div>-->
+</div>
+
 <div class="container mt-5">
     <h2>Available Books</h2>
     <table class="table table-striped mt-4">
@@ -38,105 +51,107 @@
             <td th:text="${book.price}"></td>
             <td th:text="${book.ISBN}"></td>
             <td th:text="${book.isRented}"></td>
-            <td><a th:href="@{/api/books/updateBook/{id}(id=${book.id})}" class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>
-            <td><a th:href="@{/api/books/deleteBook/{id}(id=${book.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>
+            <td><a th:href="@{/api/books/updateBook/{id}(id=${book.id})}" class="btn btn-primary"><i
+                    class="fas fa-user-edit ml-2"></i></a></td>
+            <td><a th:href="@{/api/books/deleteBook/{id}(id=${book.id})}" class="btn btn-primary"><i
+                    class="fas fa-user-times ml-2"></i></a></td>
 
         </tr>
     </table>
 </div>
 
-<style>
-    /* CSS to align input fields */
-    .form-group {
-        margin-bottom: 20px; /* Add some space between input fields */
-    }
+<!--<style>-->
+<!--    /* CSS to align input fields */-->
+<!--    .form-group {-->
+<!--        margin-bottom: 20px; /* Add some space between input fields */-->
+<!--    }-->
 
-    label {
-        display: inline-block;
-        width: 150px; /* Adjust the width as needed */
-        text-align: right;
-        margin-right: 10px; /* Add some space between label and input */
-    }
+<!--    label {-->
+<!--        display: inline-block;-->
+<!--        width: 150px; /* Adjust the width as needed */-->
+<!--        text-align: right;-->
+<!--        margin-right: 10px; /* Add some space between label and input */-->
+<!--    }-->
 
-    input[type="text"],
-    input[type="date"],
-    input[type="number"] {
-        width: 20%; /* Make input fields expand to fill the available width */
-        padding: 5px;
-    }
+<!--    input[type="text"],-->
+<!--    input[type="date"],-->
+<!--    input[type="number"] {-->
+<!--        width: 20%; /* Make input fields expand to fill the available width */-->
+<!--        padding: 5px;-->
+<!--    }-->
 
-    .button-container {
-        text-align: left; /* Center the button */
-        margin-left: 365px;
-        margin-bottom: 10px;
-        margin-top: 10px;
-    }
+<!--    .button-container {-->
+<!--        text-align: left; /* Center the button */-->
+<!--        margin-left: 365px;-->
+<!--        margin-bottom: 10px;-->
+<!--        margin-top: 10px;-->
+<!--    }-->
 
-    .text-container {
-        text-align: left; /* Center the button */
-        margin-left: 180px;
-    }
+<!--    .text-container {-->
+<!--        text-align: left; /* Center the button */-->
+<!--        margin-left: 180px;-->
+<!--    }-->
 
-    .form-group {
-        margin-bottom: 1px;
-    }
+<!--    .form-group {-->
+<!--        margin-bottom: 1px;-->
+<!--    }-->
 
-    .form-group select {
-        width: 20%; /* Make input fields expand to fill the available width */
-        padding: 5px;
-    }
+<!--    .form-group select {-->
+<!--        width: 20%; /* Make input fields expand to fill the available width */-->
+<!--        padding: 5px;-->
+<!--    }-->
 
-    .form-group option {
-        text-align: center;
-    }
+<!--    .form-group option {-->
+<!--        text-align: center;-->
+<!--    }-->
 
-</style>
+<!--</style>-->
 
-<section>
-    <h2 class="text-container">Add a New Book</h2>
-    <form action="#" th:action="@{/api/books}" th:object="${book}" method="post">
-        <div class="div-form">
-            <label for="title"><strong>Title:</strong></label>
-            <input type="text" id="title" name="title" th:field="*{title}" required>
-        </div>
-        <div class="div-form">
-            <label for="year_of_release"><strong>Release year:</strong></label>
-            <input type="date" id="year_of_release" name="year_of_release" th:field="*{year_of_release}"
-                   min="1950-01-01" max="2023-08-31" required>
-        </div>
-        <div class="div-form">
-            <label for="page_nr"><strong>Page numbers:</strong></label>
-            <input type="number" id="page_nr" name="page_nr" th:field="*{page_nr}" min="1" required>
-        </div>
-        <div class="div-form">
-            <label for="price"><strong>Price:</strong></label>
-            <input type="number" id="price" name="price" th:field="*{price}" step="0.01" min="1" required>
-        </div>
-        <div class="div-form">
-            <label for="ISBN"><strong>ISBN:</strong></label>
-            <input type="text" id="ISBN" name="ISBN" th:field="*{ISBN}" min="1" required>
-        </div>
-        <div class="form-group">
-            <label for="isRented"><strong>isRented:</strong></label>
-            <select id="isRented" name="isRented" th:field="*{isRented}" required>
-                <option value="">Choose an option</option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-            </select>
-        </div>
-        <div class="div-form">
-            <label for="author"><strong>Author:</strong></label>
-            <input type="text" id="author" name="author" th:field="*{author}" required>
-        </div>
-        <div class="div-form">
-            <label for="publisher"><strong>Publisher:</strong></label>
-            <input type="text" id="publisher" name="publisher" th:field="*{publisher}" required>
-        </div>
+<!--<section>-->
+<!--    <h2 class="text-container">Add a New Book</h2>-->
+<!--    <form action="#" th:action="@{/api/books}" th:object="${book}" method="post">-->
+<!--        <div class="div-form">-->
+<!--            <label for="title"><strong>Title:</strong></label>-->
+<!--            <input type="text" id="title" name="title" th:field="*{title}" required>-->
+<!--        </div>-->
+<!--        <div class="div-form">-->
+<!--            <label for="year_of_release"><strong>Release year:</strong></label>-->
+<!--            <input type="date" id="year_of_release" name="year_of_release" th:field="*{year_of_release}"-->
+<!--                   min="1950-01-01" max="2023-08-31" required>-->
+<!--        </div>-->
+<!--        <div class="div-form">-->
+<!--            <label for="page_nr"><strong>Page numbers:</strong></label>-->
+<!--            <input type="number" id="page_nr" name="page_nr" th:field="*{page_nr}" min="1" required>-->
+<!--        </div>-->
+<!--        <div class="div-form">-->
+<!--            <label for="price"><strong>Price:</strong></label>-->
+<!--            <input type="number" id="price" name="price" th:field="*{price}" step="0.01" min="1" required>-->
+<!--        </div>-->
+<!--        <div class="div-form">-->
+<!--            <label for="ISBN"><strong>ISBN:</strong></label>-->
+<!--            <input type="text" id="ISBN" name="ISBN" th:field="*{ISBN}" min="1" required>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label for="isRented"><strong>isRented:</strong></label>-->
+<!--            <select id="isRented" name="isRented" th:field="*{isRented}" required>-->
+<!--                <option value="">Choose an option</option>-->
+<!--                <option value="Yes">Yes</option>-->
+<!--                <option value="No">No</option>-->
+<!--            </select>-->
+<!--        </div>-->
+<!--        <div class="div-form">-->
+<!--            <label for="author"><strong>Author:</strong></label>-->
+<!--            <input type="text" id="author" name="author" th:field="*{author}" required>-->
+<!--        </div>-->
+<!--        <div class="div-form">-->
+<!--            <label for="publisher"><strong>Publisher:</strong></label>-->
+<!--            <input type="text" id="publisher" name="publisher" th:field="*{publisher}" required>-->
+<!--        </div>-->
 
-        <div class="button-container">
-            <button class="btn btn-primary" type="submit">ADD BOOK</button>
-        </div>
-    </form>
+<!--        <div class="button-container">-->
+<!--            <button class="btn btn-primary" type="submit">ADD BOOK</button>-->
+<!--        </div>-->
+<!--    </form>-->
 
 
     <div class="search-form">
@@ -155,32 +170,5 @@
 
 </section>
 
-<div class="container mt-5">
-    <h2>SEARCH RESULT</h2>
-    <table class="table table-striped mt-4">
-        <thead>
-        <tr>
-            <th>Book Title</th>
-            <th>Author</th>
-            <th>Page Number</th>
-            <th>Release Year</th>
-            <th>Publisher</th>
-            <th>Price</th>
-            <th>ISBN</th>
-            <th>Rented?</th>
-        </tr>
-        </thead>
-        <tr th:each="book:${bookDTO}">
-            <td th:text="${book.title}"></td>
-            <td th:text="${book.author}"></td>
-            <td th:text="${book.page_nr}"></td>
-            <td th:text="${book.year_of_release}"></td>
-            <td th:text="${book.publisher}"></td>
-            <td th:text="${book.price}"></td>
-            <td th:text="${book.ISBN}"></td>
-            <td th:text="${book.isRented}"></td>
-        </tr>
-    </table>
-</div>
 </body>
 </html>

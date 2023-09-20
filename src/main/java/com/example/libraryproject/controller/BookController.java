@@ -1,5 +1,7 @@
 package com.example.libraryproject.controller;
 
+import com.example.libraryproject.model.Author;
+import com.example.libraryproject.model.Book;
 import com.example.libraryproject.model.DTO.BookDTO;
 import com.example.libraryproject.service.BookService;
 import org.modelmapper.ModelMapper;
@@ -8,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,6 +48,23 @@ public class BookController {
         return "homePage";
     }
 
+    @GetMapping("/addBook")
+    public String showCreateForm(BookDTO bookDTO) {
+        return "add-book";
+    }
+
+    @RequestMapping("/add-book")
+    public String createAuthor(BookDTO bookDTO, BindingResult bindingResult, Model model, ModelMap modelMap) {
+        if (bindingResult.hasErrors()) {
+            return "add-book";
+        }
+
+        bookService.addBook(bookDTO);
+//        modelMap.addAttribute("book", new BookDTO());
+        model.addAttribute("book", bookService.findAllBooks());
+        return "redirect:/api/books";
+    }
+
     @GetMapping("/search")
     public String getBookByTitle(@RequestParam("searchTerm") String searchTerm, final Model model) {
         BookDTO bookDTO = bookService.findBookByTitleDTO(searchTerm);
@@ -53,7 +73,6 @@ public class BookController {
 
     }
 
-
     @RequestMapping("/searchBook")
     public String searchBook(@Param("keyword") String keyword, Model model) {
         final List<BookDTO> books = bookService.searchBooks(keyword);
@@ -61,6 +80,14 @@ public class BookController {
         model.addAttribute("books", books);
         model.addAttribute("keyword", keyword);
         return "list-books";
+    }
+
+    @RequestMapping("/deleteBook/{id}")
+    public String removeById(@PathVariable("id") int id, Model model) {
+        bookService.removeBookById(id);
+        List<BookDTO> books = bookService.findAllBooks();
+        model.addAttribute("books", books);
+        return "books";
     }
 
 
@@ -82,13 +109,7 @@ public class BookController {
 //                .collect(Collectors.toList());
 //    }
 
-    @RequestMapping("/deleteBook/{id}")
-    public String removeById(@PathVariable("id") int id, Model model) {
-        bookService.removeBookById(id);
-        List<BookDTO> books = bookService.findAllBooks();
-        model.addAttribute("books", books);
-        return "books";
-    }
+
 
 //    @Transactional
 //    @DeleteMapping("/delete/{id}")
