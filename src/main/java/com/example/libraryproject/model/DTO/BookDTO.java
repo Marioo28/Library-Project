@@ -11,6 +11,7 @@ import java.time.LocalDate;
 
 @NoArgsConstructor
 public class BookDTO {
+    private int id;
     private String title;
     private String ISBN;
     private int page_nr;

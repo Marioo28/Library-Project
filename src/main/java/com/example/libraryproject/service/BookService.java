@@ -8,7 +8,6 @@ import com.example.libraryproject.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,10 +30,18 @@ public class BookService {
         bookRepository.deleteById(id);
     }
 
+    public List<BookDTO> searchBooks(String keyword) {
+        if (keyword != null) {
+            return bookRepository.search(keyword);
+        }
+        return findAllBooks();
+    }
+
     public BookDTO findBookById(int id) {
         Book book = bookRepository.findById(id).get();
 
         BookDTO bookDTO = new BookDTO();
+        bookDTO.setId(bookDTO.getId());
         bookDTO.setTitle(book.getTitle());
         bookDTO.setISBN(book.getISBN());
         bookDTO.setPage_nr(book.getPage_nr());
@@ -49,12 +56,31 @@ public class BookService {
     }
 
 
-    public List<Book> getBooksSortedByPrice() {
-        return bookRepository.findAll().stream().sorted(Comparator.comparing(Book::getPrice).reversed()).toList();
-    }
+//    public List<Book> getBooksSortedByPrice() {
+//        return bookRepository.findAll().stream().sorted(Comparator.comparing(Book::getPrice).reversed()).toList();
+//    }
 
     public List<Book> findBookByTitle(String name) {
         return bookRepository.findBookByTitle(name);
+    }
+
+
+    public BookDTO findBookByTitleDTO(String name) {
+        Book book = bookRepository.findByTitle(name);
+
+        BookDTO bookDTO = new BookDTO();
+        bookDTO.setId(book.getId());
+        bookDTO.setTitle(book.getTitle());
+        bookDTO.setISBN(book.getISBN());
+        bookDTO.setPage_nr(book.getPage_nr());
+        bookDTO.setPrice(book.getPrice());
+        bookDTO.setDescription(book.getDescription());
+        bookDTO.setYear_of_release(book.getYear_of_release());
+        bookDTO.setIsRented(book.getIsRented());
+        bookDTO.setPublisher(book.getPublisher().getName());
+        bookDTO.setAuthor(book.getAuthor().getName());
+
+        return bookDTO;
     }
 
 
@@ -65,6 +91,14 @@ public class BookService {
         List<BookDTO> bookDTOs = books.stream()
                 .map(book -> {
                     BookDTO bookDTO = new BookDTO(book);
+                    bookDTO.setId(book.getId());
+                    bookDTO.setTitle(book.getTitle());
+                    bookDTO.setISBN(book.getISBN());
+                    bookDTO.setPage_nr(book.getPage_nr());
+                    bookDTO.setPrice(book.getPrice());
+                    bookDTO.setDescription(book.getDescription());
+                    bookDTO.setYear_of_release(book.getYear_of_release());
+                    bookDTO.setIsRented(book.getIsRented());
                     bookDTO.setPublisher(book.getPublisher().getName());
                     bookDTO.setAuthor(book.getAuthor().getName());
                     return bookDTO;
@@ -73,6 +107,30 @@ public class BookService {
 
         return bookDTOs;
     }
+
+//    public List<BookDTO> findAllBooksDTO() {
+//        List<BookDTO> booksDTO = bookRepository.findAllDTO();
+//
+//        // Convert Book entities to BookDTOs
+//        List<Book> bookDTOs = books.stream()
+//                .map(book -> {
+//                    BookDTO bookDTO = new BookDTO(book);
+//                    bookDTO.setId(book.getId());
+//                    bookDTO.setTitle(book.getTitle());
+//                    bookDTO.setISBN(book.getISBN());
+//                    bookDTO.setPage_nr(book.getPage_nr());
+//                    bookDTO.setPrice(book.getPrice());
+//                    bookDTO.setDescription(book.getDescription());
+//                    bookDTO.setYear_of_release(book.getYear_of_release());
+//                    bookDTO.setIsRented(book.getIsRented());
+//                    bookDTO.setPublisher(book.getPublisher().getName());
+//                    bookDTO.setAuthor(book.getAuthor().getName());
+//                    return bookDTO;
+//                })
+//                .collect(Collectors.toList());
+//
+//        return bookDTOs;
+//    }
 
 
     public BookDTO addBook(BookDTO bookDTO) {
@@ -97,5 +155,10 @@ public class BookService {
         }
 
         return bookDTO;
+    }
+
+
+    public List<Book> getAllBooks() {
+        return bookRepository.findAll();
     }
 }

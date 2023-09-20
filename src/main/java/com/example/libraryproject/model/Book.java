@@ -35,8 +35,13 @@ public class Book {
 
     @JsonBackReference
     public Publisher getPublisher() {
+        if (publisher==null){
+            return new Publisher("null", null);
+        }
         return publisher;
     }
+
+
 
     public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
@@ -44,6 +49,9 @@ public class Book {
 
     @JsonBackReference
     public Author getAuthor() {
+        if (publisher==null){
+            return new Author("null", null);
+        }
         return author;
     }
 
