@@ -18,7 +18,7 @@ public class PublisherService {
     private PublisherRepository publisherRepository;
 
     public Publisher savePublisher(Publisher publisher) {
-        return publisherRepository.save(publisher);
+        return findOrCreatePublisher(publisher.getName());
     }
 
     public void removePublisherById(int id) {

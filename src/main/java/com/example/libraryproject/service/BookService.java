@@ -1,5 +1,6 @@
 package com.example.libraryproject.service;
 
+import com.example.libraryproject.exception.NotFoundException;
 import com.example.libraryproject.model.Author;
 import com.example.libraryproject.model.Book;
 import com.example.libraryproject.model.DTO.BookDTO;
@@ -38,6 +39,12 @@ public class BookService {
         return findAllBooks();
     }
 
+//    public BookDTO findOrCreateBook(String title) {
+//        return bookRepository.findByTitleBook(title).orElseGet(() -> addBook(new BookDTO()));
+//    }
+
+
+
     public BookDTO findBookById(int id) {
         Book book = bookRepository.findById(id).get();
 
@@ -61,14 +68,14 @@ public class BookService {
 //        return bookRepository.findAll().stream().sorted(Comparator.comparing(Book::getPrice).reversed()).toList();
 //    }
 
-    public List<Book> findBookByTitle(String name) {
-        return bookRepository.findBookByTitle(name);
-    }
+
 
 
     public BookDTO findBookByTitleDTO(String name) {
         Book book = bookRepository.findByTitle(name);
-
+        if (book==null){
+            throw new NotFoundException("No such book");
+        }
         BookDTO bookDTO = new BookDTO();
         bookDTO.setId(book.getId());
         bookDTO.setTitle(book.getTitle());

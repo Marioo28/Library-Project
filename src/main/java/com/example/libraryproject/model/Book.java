@@ -25,11 +25,11 @@ public class Book {
     private LocalDate year_of_release;
     private Boolean isRented;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name = "publisher_id")
     private Publisher publisher;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name = "author_id")
     private Author author;
 
@@ -40,8 +40,6 @@ public class Book {
         }
         return publisher;
     }
-
-
 
     public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
@@ -58,4 +56,6 @@ public class Book {
     public void setAuthor(Author author) {
         this.author = author;
     }
+
+
 }

@@ -3,7 +3,9 @@ package com.example.libraryproject.controller;
 import com.example.libraryproject.model.Author;
 import com.example.libraryproject.model.Book;
 import com.example.libraryproject.model.DTO.BookDTO;
+import com.example.libraryproject.service.AuthorService;
 import com.example.libraryproject.service.BookService;
+import com.example.libraryproject.service.PublisherService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -23,11 +25,17 @@ public class BookController {
     @Autowired
     private ModelMapper modelMapper;
 
-    @Autowired
-    private BookService bookService;
+    private final BookService bookService;
 
-    public BookController(BookService bookService) {
+    private final AuthorService authorService;
+
+    private final PublisherService publisherService;
+
+    @Autowired
+    public BookController(BookService bookService, AuthorService authorService,PublisherService publisherService) {
         this.bookService = bookService;
+        this.authorService = authorService;
+        this.publisherService = publisherService;
     }
 
 
@@ -49,7 +57,9 @@ public class BookController {
     }
 
     @GetMapping("/addBook")
-    public String showCreateForm(BookDTO bookDTO) {
+    public String showCreateForm(BookDTO bookDTO, Model model) {
+        model.addAttribute("authors", authorService.findAllAuthors());
+        model.addAttribute("publishers", publisherService.findAllPublishers());
         return "add-book";
     }
 
