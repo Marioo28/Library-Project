@@ -1,5 +1,6 @@
 package com.example.libraryproject.controller;
 
+import com.example.libraryproject.model.Author;
 import com.example.libraryproject.model.DTO.PublisherDTO;
 import com.example.libraryproject.model.Publisher;
 import com.example.libraryproject.service.PublisherService;
@@ -46,6 +47,27 @@ public class PublisherController {
         publisherService.savePublisher(publisher);
         model.addAttribute("publisher", publisherService.findAllPublishers());
         return "redirect:/api/publishers";
+    }
+
+    @GetMapping("/updatePublisher/{id}")
+    public String showUpdateForm(@PathVariable("id") int id, Model model) {
+        final Publisher publisher = publisherService.findPublisherById(id);
+
+        model.addAttribute("publisher", publisher);
+
+        return "update-publisher";
+    }
+
+    @RequestMapping("/update-publisher/{id}")
+    public String updatePublisher(@PathVariable("id") int id, Publisher publisher, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            publisher.setId(id);
+            return "update-publisher";
+        }
+
+        publisherService.savePublisher(publisher);
+        model.addAttribute("author", publisherService.findAllPublishers());
+        return "redirect:/publishers";
     }
 
     @RequestMapping("/deletePublisher/{id}")

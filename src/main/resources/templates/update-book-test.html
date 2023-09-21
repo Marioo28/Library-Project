@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Update Book</title>
+</head>
+<body>
+<h1>Update Book</h1>
+<!-- Form to update author -->
+<form th:action="@{/api/books/updateBook}" th:object="${book}" method="post">
+    <!-- Input field for author's name -->
+    <label for="bookTitle">Book title:</label>
+    <input type="text" id="bookTitle" name="name" th:value="${book.title}" required />
+
+    <!-- Hidden input field for author's ID -->
+    <input type="hidden" name="id" th:value="${book.id}" />
+
+    <!-- Submit button -->
+<!--    <button type="submit">Update Author</button>-->
+    <input type="submit" class="btn btn-primary" value=" Submit ">
+
+</form>
+</body>
+</html>

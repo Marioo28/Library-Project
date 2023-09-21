@@ -20,6 +20,26 @@ public class AuthorService {
         return authorRepository.save(author);
     }
 
+    public Author updateAuthor(Author authorToUpdate) {
+
+        Author author = new Author();
+        author.setId(authorToUpdate.getId());
+        author.setName(authorToUpdate.getName());
+        author.setBookList(authorToUpdate.getBookList());
+
+        return authorRepository.save(author);
+    }
+//    public AuthorDTO updateAuthorDTO(Author authorToUpdate) {
+//
+//        AuthorDTO author = new AuthorDTO();
+//        author.setId(authorToUpdate.getId());
+//        author.setName(authorToUpdate.getName());
+//        author.setBookList(authorToUpdate.getBookList().stream()
+//                .map(Book::getTitle).collect(Collectors.toList()));
+//
+//        return updateAuthor(author);
+//    }
+
     public Author save(AuthorDTO authorDTO) {
         return authorRepository.save(authorDTO);
     }
@@ -28,7 +48,7 @@ public class AuthorService {
         authorRepository.deleteById(id);
     }
 
-    public Author findAuthorById(int id) {
+    public Author findById(int id) {
         return authorRepository.findById(id).get();
     }
 

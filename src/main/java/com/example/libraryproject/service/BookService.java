@@ -22,12 +22,13 @@ public class BookService {
     @Autowired
     private PublisherService publisherService;
 
-    public Book saveBook(Book book) {
-        return bookRepository.save(book);
-    }
 
     public void removeBookById(int id) {
         bookRepository.deleteById(id);
+    }
+
+    public Book findById(int id) {
+        return bookRepository.findById(id).get();
     }
 
     public List<BookDTO> searchBooks(String keyword) {
@@ -108,7 +109,7 @@ public class BookService {
         return bookDTOs;
     }
 
-//    public List<BookDTO> findAllBooksDTO() {
+    //    public List<BookDTO> findAllBooksDTO() {
 //        List<BookDTO> booksDTO = bookRepository.findAllDTO();
 //
 //        // Convert Book entities to BookDTOs
@@ -131,7 +132,30 @@ public class BookService {
 //
 //        return bookDTOs;
 //    }
+    public Book saveBook(Book bookToSave) {
+        Author author = authorService.findOrCreateAuthor(bookToSave.getAuthor().getName());
+        Publisher publisher = publisherService.findOrCreatePublisher(bookToSave.getPublisher().getName());
 
+        Book book = new Book();
+        book.setTitle(bookToSave.getTitle());
+        book.setISBN(bookToSave.getISBN());
+        book.setPage_nr(bookToSave.getPage_nr());
+        book.setPrice(bookToSave.getPrice());
+        book.setDescription(bookToSave.getDescription());
+        book.setYear_of_release(bookToSave.getYear_of_release());
+        book.setIsRented(bookToSave.getIsRented());
+        book.setPublisher(publisher);
+        book.setAuthor(author);
+
+        try {
+            bookRepository.save(book);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return book;
+
+    }
 
     public BookDTO addBook(BookDTO bookDTO) {
         Author author = authorService.findOrCreateAuthor(bookDTO.getAuthor());

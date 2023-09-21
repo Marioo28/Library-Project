@@ -16,6 +16,6 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     List<Book> findAll();
 //    List<BookDTO> findAllDTO();
 
-    @Query("SELECT b FROM Book b WHERE b.title LIKE %?1%" + " OR b.ISBN LIKE %?1%")
+    @Query("SELECT b FROM Book b WHERE b.title LIKE %?1%" + " OR b.ISBN LIKE %?1%" + " OR b.author.name LIKE %?1%")
     List<BookDTO> search(String keyword);
 }
