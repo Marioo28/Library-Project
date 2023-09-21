@@ -84,6 +84,25 @@ public class BookController {
         return "list-books";
     }
 
+    @GetMapping("/editBook/{id}")
+    public String editBook(@PathVariable int id, Model model) {
+        Book book = bookService.findById(id);
+        model.addAttribute("book", book);
+        return "update-book-test";
+    }
+
+    @PostMapping("/updateBook")
+    public String updateBook(@ModelAttribute Book updatedBook) {
+        // Here, you can update the author's information using the updatedAuthor object
+        // Save it to the database using the authorRepository or your data access layer
+        bookService.saveBook(updatedBook);
+
+        // Redirect to the author list or a success page
+        return "redirect:/api/books";
+    }
+
+
+
     @RequestMapping("/deleteBook/{id}")
     public String removeById(@PathVariable("id") int id, Model model) {
         bookService.removeBookById(id);
