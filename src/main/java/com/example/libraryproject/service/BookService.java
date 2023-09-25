@@ -8,6 +8,8 @@ import com.example.libraryproject.model.Publisher;
 import com.example.libraryproject.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,6 +37,24 @@ public class BookService {
         return bookRepository.findById(id).get();
     }
 
+    //    -----------Book Update 25/09------------
+    @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+    public List<Book> findAllBook() {
+        return bookRepository.findAll();
+    }
+
+    public Book findBookById(int id) {
+        return bookRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException(String.format("Book not found with ID %d", id)));
+    }
+
+    public void updateBook(Book book) {
+        bookRepository.save(book);
+    }
+
+
+//    -----------Book Update 25/09------------
+
     public List<BookDTO> searchBooks(String keyword) {
         if (keyword != null) {
             return bookRepository.search(keyword);
@@ -47,24 +67,23 @@ public class BookService {
 //    }
 
 
-
-    public BookDTO findBookById(int id) {
-        Book book = bookRepository.findById(id).get();
-
-        BookDTO bookDTO = new BookDTO();
-        bookDTO.setId(bookDTO.getId());
-        bookDTO.setTitle(book.getTitle());
-        bookDTO.setISBN(book.getISBN());
-        bookDTO.setPage_nr(book.getPage_nr());
-        bookDTO.setPrice(book.getPrice());
-        bookDTO.setDescription(book.getDescription());
-        bookDTO.setYear_of_release(book.getYear_of_release());
-        bookDTO.setIsRented(book.getIsRented());
-        bookDTO.setPublisher(book.getPublisher().getName());
-        bookDTO.setAuthor(book.getAuthor().getName());
-
-        return bookDTO;
-    }
+//    public BookDTO findBookById(int id) {
+//        Book book = bookRepository.findById(id).get();
+//
+//        BookDTO bookDTO = new BookDTO();
+//        bookDTO.setId(bookDTO.getId());
+//        bookDTO.setTitle(book.getTitle());
+//        bookDTO.setISBN(book.getISBN());
+//        bookDTO.setPage_nr(book.getPage_nr());
+//        bookDTO.setPrice(book.getPrice());
+//        bookDTO.setDescription(book.getDescription());
+//        bookDTO.setYear_of_release(book.getYear_of_release());
+//        bookDTO.setIsRented(book.getIsRented());
+//        bookDTO.setPublisher(book.getPublisher().getName());
+//        bookDTO.setAuthor(book.getAuthor().getName());
+//
+//        return bookDTO;
+//    }
 
 
 //    public List<Book> getBooksSortedByPrice() {
@@ -72,11 +91,9 @@ public class BookService {
 //    }
 
 
-
-
     public BookDTO findBookByTitleDTO(String name) {
         Book book = bookRepository.findByTitle(name);
-        if (book==null){
+        if (book == null) {
             throw new NotFoundException("No such book");
         }
         BookDTO bookDTO = new BookDTO();

@@ -56,7 +56,6 @@ public class AuthorService {
             theAuthor = result.get();
         }
         else {
-
             throw new RuntimeException("Did not find author id - " + id);
         }
         return theAuthor;

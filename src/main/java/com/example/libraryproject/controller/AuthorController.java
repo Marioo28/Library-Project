@@ -67,7 +67,7 @@ public class AuthorController {
 
         authorService.saveAuthor(author);
         model.addAttribute("author", authorService.findAllAuthors());
-        return "redirect:/authors";
+        return "redirect:api/authors";
     }
 
     @GetMapping("/editAuthor/{id}")

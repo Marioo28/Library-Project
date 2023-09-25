@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Book Form update</title>
+</head>
+<body>
+<div th:insert="~{fragments/header :: header}"></div>
+
+<div class="container my-5">
+    <h3>Update Book</h3>
+    <div class="card">
+        <div class="card-body">
+            <div class="col-md-10">
+                <form action="#" th:action="@{/updateTheBook/{id}(id=${book.id})}" th:object="${book}" method="post">
+                    <div class="row">
+
+                        <div class="form-group col-md-8">
+                            <label for="ISBN" class="col-form-label">ISBN</label>
+                            <input type="text" th:field="*{ISBN}" class="form-control" id="isbn" placeholder="ISBN" />
+                            <span th:if="${#fields.hasErrors('ISBN')}" th:errors="*{ISBN}"></span>
+                        </div>
+
+                        <div class="form-group col-md-8">
+                            <label for="title" class="col-form-label">Book Name</label>
+                            <input type="text" th:field="*{title}" class="form-control" id="title" placeholder="Book Name" />
+                        </div>
+
+                        <div class="form-group col-md-8">
+                            <label for="page_nr" class="col-form-label">Page NR </label>
+                            <input type="text" th:field="*{page_nr}" class="form-control" id="page_nr" placeholder="Serial Name" />
+                        </div>
+
+                        <div class="form-group col-md-8">
+                            <label for="price" class="col-form-label">Price</label>
+                            <input type="text" th:field="*{price}" class="form-control" id="price" placeholder="Description" />
+                        </div>
+
+                        <div class="form-group col-md-8">
+                            <label for="description" class="col-form-label">description</label>
+                            <input type="text" th:field="*{description}" class="form-control" id="description" placeholder="Description" />
+                        </div>
+
+                        <div class="col-md-6">
+                            <input type="submit" class="btn btn-primary" value=" Submit ">
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+</html>

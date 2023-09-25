@@ -49,12 +49,12 @@ public class BookController {
         return "books";
     }
 
-    @PostMapping
-    public String addBook(@ModelAttribute BookDTO book) {
-        BookDTO savedBook = bookService.addBook(book);
-
-        return "homePage";
-    }
+//    @PostMapping
+//    public String addBook(@ModelAttribute BookDTO book) {
+//        BookDTO savedBook = bookService.addBook(book);
+//
+//        return "homePage";
+//    }
 
     @GetMapping("/addBook")
     public String showCreateForm(BookDTO bookDTO, Model model) {
@@ -75,14 +75,14 @@ public class BookController {
         return "redirect:/api/books";
     }
 
-    //method down in book.html
-    @GetMapping("/search")
-    public String getBookByTitle(@RequestParam("searchTerm") String searchTerm, final Model model) {
-        BookDTO bookDTO = bookService.findBookByTitleDTO(searchTerm);
-        model.addAttribute("bookDTO", bookDTO);
-        return "searchResults";
-
-    }
+//    //method down in book.html
+//    @GetMapping("/search")
+//    public String getBookByTitle(@RequestParam("searchTerm") String searchTerm, final Model model) {
+//        BookDTO bookDTO = bookService.findBookByTitleDTO(searchTerm);
+//        model.addAttribute("bookDTO", bookDTO);
+//        return "searchResults";
+//
+//    }
 
     //method in header
     @RequestMapping("/searchBook")
@@ -111,7 +111,29 @@ public class BookController {
         return "redirect:/api/books";
     }
 
+//    -----------Book Update 25/09------------
 
+
+    @GetMapping("/updateBookForm/{id}")
+    public String showUpdateForm(@PathVariable("id") int id, Model model) {
+        final Book book = bookService.findBookById(id);
+
+        model.addAttribute("book", book);
+        return "update-book-25.09";
+    }
+
+    @RequestMapping("/updateTheBook/{id}")
+    public String updateTheBook(@PathVariable("id") int id, Book book, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            book.setId(id);
+            return "update-book-25.09";
+        }
+
+        bookService.updateBook(book);
+        model.addAttribute("book", bookService.findAllBooks());
+        return "redirect:api/books";
+    }
+//    -----------Book Update 25/09------------
 
     @RequestMapping("/deleteBook/{id}")
     public String removeById(@PathVariable("id") int id, Model model) {
