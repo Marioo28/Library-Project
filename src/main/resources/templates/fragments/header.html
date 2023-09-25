@@ -10,9 +10,10 @@
     <title>BookLibrary</title>
 </head>
 <body>
-<nav th:fragment="header" class="navbar navbar-expand-lg " style="background-color: #d5d86f">
+<!--#e8cdac-->
+<nav th:fragment="header" class="navbar navbar-expand-lg " style="background-color: #d5d86f;  border: 1px solid #000;">
     <div class="container-fluid">
-        <a class="navbar-brand" >Library Management System</a>
+        <a class="navbar-brand" ><strong>Library Management System</strong></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
                 aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -20,27 +21,19 @@
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/" th:href="@{/}">Home</a>
+                    <a class="nav-link active" aria-current="page" href="/" th:href="@{/}"><strong>Home</strong></a>
                 </li>
                 </li><li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/api/books" th:href="@{/api/books}">Books</a>
+                    <a class="nav-link active" aria-current="page" href="/api/books" th:href="@{/api/books}"><strong>Books</strong></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/api/authors" th:href="@{/api/authors}">Authors</a>
+                    <a class="nav-link active" href="/api/authors" th:href="@{/api/authors}"><strong>Authors</strong></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/api/publishers" th:href="@{/api/publishers}">Publishers</a>
+                    <a class="nav-link active" href="/api/publishers" th:href="@{/api/publishers}"><strong>Publishers</strong></a>
                 </li>
             </ul>
-<!--            <span class="navbar-text">-->
 
-<!--    <form th:action="@{books/searchBook}" class="form-inline my-2 my-lg-0">-->
-<!--        <input class="form-control mr-sm-2" name="keyword" id="keyword"-->
-<!--               type="text" placeholder="Search a book"-->
-<!--               aria-label="Search" th:value="${keyword}">-->
-<!--        <input class="btn btn-outline-success active my-2 my-sm-0" type="submit" value="Search"/>-->
-<!--    </form>-->
-<!--      </span>-->
         </div>
     </div>
 </nav>
