@@ -23,7 +23,7 @@ public class BookDTO {
     private String author;
 
     public BookDTO(Book book) {
-
+        this.id = book.getId();
         this.title = book.getTitle();
         this.ISBN = book.getISBN();
         this.page_nr = book.getPage_nr();

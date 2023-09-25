@@ -3,26 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet"href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <link rel="stylesheet"href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>BookLibrary</title>
 </head>
 <body>
-    <div th:insert="~{fragments/header :: header}"></div>
-    <div class="container my-2">
-<!--        <div class="card">-->
-<!--            <div class="card-body">-->
-<!--                <div th:switch="${authors}" class="container my-5">-->
-                    <p class="my-5">
-                        <a href="/api/authors/addAuthor" th:href="@{/api/authors/addAuthor}" class="btn btn-primary">
-                            <i class="fas fa-user-plus ml-2">  Add Author </i></a>
-                    </p>
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-    </div>
+<div th:insert="~{fragments/header :: header}"></div>
+<div class="container my-2">
+    <!--        <div class="card">-->
+    <!--            <div class="card-body">-->
+    <!--                <div th:switch="${authors}" class="container my-5">-->
+    <p class="my-5">
+        <a href="/api/authors/addAuthor" th:href="@{/api/authors/addAuthor}" class="btn btn-primary">
+            <i class="fas fa-user-plus ml-2"> Add Author </i></a>
+    </p>
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--        </div>-->
+</div>
 
 
 <div class="container mt-5">
@@ -39,9 +39,12 @@
         <tr th:each="author:${authors}">
             <td th:text="${author.name}"></td>
             <td th:text="${author.bookList}"></td>
-<!--            <td><a th:href="@{/api/authors/updateAuthor/{id}(id=${author.id})}" class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>-->
-            <td><a th:href="@{/api/authors/editAuthor/{id}(id=${author.id})}" class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>
-            <td><a th:href="@{/api/authors/deleteAuthor/{id}(id=${author.id})}" class="btn btn-primary"><i class="fas fa-user-times ml-2"></i></a></td>
+            <!--            <td><a th:href="@{/api/authors/updateAuthor/{id}(id=${author.id})}" class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>-->
+            <td><a th:href="@{/api/authors/editAuthor/{id}(id=${author.id})}" class="btn btn-primary"><i
+                    class="fas fa-user-edit ml-2"></i></a></td>
+            <td><a th:href="@{/api/authors/deleteAuthor/{id}(id=${author.id})}" class="btn btn-primary"
+                   onclick="if (!(confirm('Are you sure you want to delete this author?'))) return false"><i
+                    class="fas fa-user-times ml-2"></i></a></td>
         </tr>
     </table>
 </div>

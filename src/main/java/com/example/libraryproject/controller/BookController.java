@@ -118,7 +118,7 @@ public class BookController {
         bookService.removeBookById(id);
 //        List<BookDTO> books = bookService.findAllBooks();
         model.addAttribute("books", bookService.findAllBooks());
-        return "books";
+        return "redirect:/api/books";
     }
 
 

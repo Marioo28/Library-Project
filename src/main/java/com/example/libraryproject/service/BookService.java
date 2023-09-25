@@ -25,7 +25,10 @@ public class BookService {
 
 
     public void removeBookById(int id) {
-        bookRepository.deleteById(id);
+        final Book book = bookRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException(String.format("Book not found with ID %d", id)));
+
+        bookRepository.deleteById(book.getId());
     }
 
     public Book findById(int id) {
