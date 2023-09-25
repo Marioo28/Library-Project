@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -17,7 +18,7 @@ public class AuthorService {
     private AuthorRepository authorRepository;
 
     public Author saveAuthor(Author author) {
-        return authorRepository.save(author);
+        return findOrCreateAuthor(author.getName());
     }
 
     public Author updateAuthor(Author authorToUpdate) {
@@ -49,7 +50,15 @@ public class AuthorService {
     }
 
     public Author findById(int id) {
-        return authorRepository.findById(id).get();
+        Optional<Author> result = authorRepository.findById(id);
+        Author theAuthor = null;
+        if (result.isPresent()) {
+            theAuthor = result.get();
+        }
+        else {
+            throw new RuntimeException("Did not find author id - " + id);
+        }
+        return theAuthor;
     }
 
     public List<Author> findAllAuthors() {

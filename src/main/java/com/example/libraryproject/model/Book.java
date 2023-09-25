@@ -1,5 +1,6 @@
 package com.example.libraryproject.model;
 
+import com.example.libraryproject.exception.NotFoundException;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -25,23 +26,21 @@ public class Book {
     private LocalDate year_of_release;
     private Boolean isRented;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name = "publisher_id")
     private Publisher publisher;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name = "author_id")
     private Author author;
 
     @JsonBackReference
     public Publisher getPublisher() {
-        if (publisher==null){
-            return new Publisher("null", null);
-        }
+//        if (publisher==null){
+//            return new Publisher("null", null);
+//        }
         return publisher;
     }
-
-
 
     public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
@@ -49,13 +48,15 @@ public class Book {
 
     @JsonBackReference
     public Author getAuthor() {
-        if (publisher==null){
-            return new Author("null", null);
-        }
+//        if (publisher==null){
+//            return new Author("null", null);
+//        }
         return author;
     }
 
     public void setAuthor(Author author) {
         this.author = author;
     }
+
+
 }

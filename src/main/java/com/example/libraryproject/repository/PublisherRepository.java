@@ -11,7 +11,6 @@ import java.util.Optional;
 @Repository
 public interface PublisherRepository extends JpaRepository<Publisher, Integer> {
     Optional<Publisher> findByName(String name);
-
     @Query(value = "SELECT a.name, count(b.id) FROM Publisher a LEFT JOIN a.books b GROUP BY a.name")
     List<Object[]> findPublisherBookCount();
 }

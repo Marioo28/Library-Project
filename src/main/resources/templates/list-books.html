@@ -12,42 +12,51 @@
 <body>
 <div th:insert="~{fragments/header :: header}"></div>
 
-<h2>Books found</h2>
-<table class="table table-striped table-responsive-md">
-    <thead>
-    <tr>
-        <th>Book Title</th>
-        <th>Author</th>
-        <th>Page Number</th>
-        <th>Release Year</th>
-        <th>Publisher</th>
-        <th>Price</th>
-        <th>ISBN</th>
-        <th>Rented?</th>
-        <th>Edit</th>
-        <th>Delete</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="book:${books}">
-        <td th:text="${book.title}"></td>
-        <td th:text="${book.author}"></td>
-        <td th:text="${book.page_nr}"></td>
-        <td th:text="${book.year_of_release}"></td>
-        <td th:text="${book.publisher}"></td>
-        <td th:text="${book.price}"></td>
-        <td th:text="${book.ISBN}"></td>
-        <td th:text="${book.isRented}"></td>
-        <td><a th:href="@{/api/books/updateBook/{id}(id=${book.id})}" class="btn btn-primary"><i
-                class="fas fa-user-edit ml-2"></i></a></td>
-        <td><a th:href="@{/api/books/deleteBook/{id}(id=${book.id})}" class="btn btn-primary"><i
-                class="fas fa-user-times ml-2"></i></a></td>
+<div class="container mt-5">
+    <h2>Books found</h2>
+    <table class="table table-striped table-responsive-md">
+        <thead>
+        <tr>
+            <th>Book Title</th>
+            <th>Author</th>
+            <th>Page Number</th>
+            <th>Release Year</th>
+            <th>Publisher</th>
+            <th>Price</th>
+            <th>ISBN</th>
+            <th>Rented?</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <!--    <tbody>-->
+        <tr th:each="book:${books}">
+            <td th:text="${book.title}"></td>
+            <td th:text="${book.author}"></td>
+            <td th:text="${book.page_nr}"></td>
+            <td th:text="${book.year_of_release}"></td>
+            <td th:text="${book.publisher}"></td>
+            <td th:text="${book.price}"></td>
+            <td th:text="${book.ISBN}"></td>
+            <td th:text="${book.isRented}"></td>
 
-    </tr>
-    </tbody>
-</table>
+
+            <!--            <td><a th:href="@{/api/books/updateBook/{id}(id=${book.id})}" class="btn btn-primary"><i-->
+            <!--                    class="fas fa-user-edit ml-2"></i></a></td>-->
+            <td><a th:href="@{/api/books/showFormForUpdate(bookId=${book.id})}" class="btn btn-primary"><i
+                    class="fas fa-user-edit ml-2"></i></a></td>
+            <td><a th:href="@{/api/books/deleteBook/{id}(id=${book.id})}" class="btn btn-primary"
+                   onclick="if (!(confirm('Are you sure you want to delete this book?'))) return false"><i
+                    class="fas fa-user-times ml-2"></i></a></td>
+
+        </tr>
+        <!--    </tbody>-->
+    </table>
 </div>
 
-</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
 </body>
 </html>
