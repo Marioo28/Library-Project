@@ -1,5 +1,6 @@
 package com.example.libraryproject.model;
 
+import com.example.libraryproject.exception.NotFoundException;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -35,9 +36,9 @@ public class Book {
 
     @JsonBackReference
     public Publisher getPublisher() {
-        if (publisher==null){
-            return new Publisher("null", null);
-        }
+//        if (publisher==null){
+//            return new Publisher("null", null);
+//        }
         return publisher;
     }
 
@@ -47,9 +48,9 @@ public class Book {
 
     @JsonBackReference
     public Author getAuthor() {
-        if (publisher==null){
-            return new Author("null", null);
-        }
+//        if (publisher==null){
+//            return new Author("null", null);
+//        }
         return author;
     }
 

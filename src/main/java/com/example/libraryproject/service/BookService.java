@@ -62,40 +62,32 @@ public class BookService {
         return findAllBooks();
     }
 
-//    public BookDTO findOrCreateBook(String title) {
-//        return bookRepository.findByTitleBook(title).orElseGet(() -> addBook(new BookDTO()));
-//    }
-
-
-//    public BookDTO findBookById(int id) {
-//        Book book = bookRepository.findById(id).get();
-//
-//        BookDTO bookDTO = new BookDTO();
-//        bookDTO.setId(bookDTO.getId());
-//        bookDTO.setTitle(book.getTitle());
-//        bookDTO.setISBN(book.getISBN());
-//        bookDTO.setPage_nr(book.getPage_nr());
-//        bookDTO.setPrice(book.getPrice());
-//        bookDTO.setDescription(book.getDescription());
-//        bookDTO.setYear_of_release(book.getYear_of_release());
-//        bookDTO.setIsRented(book.getIsRented());
-//        bookDTO.setPublisher(book.getPublisher().getName());
-//        bookDTO.setAuthor(book.getAuthor().getName());
-//
-//        return bookDTO;
-//    }
-
-
-//    public List<Book> getBooksSortedByPrice() {
-//        return bookRepository.findAll().stream().sorted(Comparator.comparing(Book::getPrice).reversed()).toList();
-//    }
-
 
     public BookDTO findBookByTitleDTO(String name) {
         Book book = bookRepository.findByTitle(name);
         if (book == null) {
             throw new NotFoundException("No such book");
         }
+        BookDTO bookDTO = new BookDTO();
+        bookDTO.setId(book.getId());
+        bookDTO.setTitle(book.getTitle());
+        bookDTO.setISBN(book.getISBN());
+        bookDTO.setPage_nr(book.getPage_nr());
+        bookDTO.setPrice(book.getPrice());
+        bookDTO.setDescription(book.getDescription());
+        bookDTO.setYear_of_release(book.getYear_of_release());
+        bookDTO.setIsRented(book.getIsRented());
+        bookDTO.setPublisher(book.getPublisher().getName());
+        bookDTO.setAuthor(book.getAuthor().getName());
+
+        return bookDTO;
+    }
+
+    public BookDTO findBookDTOById(Integer id) {
+        Book book = bookRepository.findById(id).orElseThrow(()
+                -> new NotFoundException(String.format("Book not found with ID %d", id)));
+
+
         BookDTO bookDTO = new BookDTO();
         bookDTO.setId(book.getId());
         bookDTO.setTitle(book.getTitle());
@@ -135,35 +127,14 @@ public class BookService {
 
         return bookDTOs;
     }
-
-    //    public List<BookDTO> findAllBooksDTO() {
-//        List<BookDTO> booksDTO = bookRepository.findAllDTO();
-//
-//        // Convert Book entities to BookDTOs
-//        List<Book> bookDTOs = books.stream()
-//                .map(book -> {
-//                    BookDTO bookDTO = new BookDTO(book);
-//                    bookDTO.setId(book.getId());
-//                    bookDTO.setTitle(book.getTitle());
-//                    bookDTO.setISBN(book.getISBN());
-//                    bookDTO.setPage_nr(book.getPage_nr());
-//                    bookDTO.setPrice(book.getPrice());
-//                    bookDTO.setDescription(book.getDescription());
-//                    bookDTO.setYear_of_release(book.getYear_of_release());
-//                    bookDTO.setIsRented(book.getIsRented());
-//                    bookDTO.setPublisher(book.getPublisher().getName());
-//                    bookDTO.setAuthor(book.getAuthor().getName());
-//                    return bookDTO;
-//                })
-//                .collect(Collectors.toList());
-//
-//        return bookDTOs;
-//    }
+//for update
     public Book saveBook(Book bookToSave) {
         Author author = authorService.findOrCreateAuthor(bookToSave.getAuthor().getName());
         Publisher publisher = publisherService.findOrCreatePublisher(bookToSave.getPublisher().getName());
-
-        Book book = new Book();
+        Book book = bookRepository.findById(bookToSave.getId()).orElseThrow(()
+                -> new NotFoundException(String.format("Book not found with ID %d", bookToSave.getId())));
+//        Book book = new Book();
+//        book.setId(bookToSave.getId());
         book.setTitle(bookToSave.getTitle());
         book.setISBN(bookToSave.getISBN());
         book.setPage_nr(bookToSave.getPage_nr());
@@ -181,9 +152,8 @@ public class BookService {
         }
 
         return book;
-
     }
-
+//for add new book
     public BookDTO addBook(BookDTO bookDTO) {
         Author author = authorService.findOrCreateAuthor(bookDTO.getAuthor());
         Publisher publisher = publisherService.findOrCreatePublisher(bookDTO.getPublisher());

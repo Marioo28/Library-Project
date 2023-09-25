@@ -1,71 +1,52 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <title>Book Form update</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <title>Save Book</title>
 </head>
 <body>
-<div th:insert="~{fragments/header :: header}"></div>
 
-<div class="container my-5">
-    <h3>Update Book</h3>
-    <div class="card">
-        <div class="card-body">
-            <div class="col-md-10">
-                <form action="#" th:action="@{/updateTheBook/{id}(id=${book.id})}" th:object="${book}" method="post">
-                    <div class="row">
+<div class="container">
+    <h3>Book Directory</h3>
+    <hr>
+    <p class="h4 mb-4">Save Book</p>
+    <form action="#" th:action="@{/api/books/save}"
+          th:object="${books1}" method="POST">
+        <!-- Add hidden form field to handle update -->
+        <input type="hidden" th:field="*{id}" />
+        Book Name:
+        <input type="text" th:field="*{title}"
+               class="form-control mb-4 col-4" placeholder="Book title">
 
-                        <div class="form-group col-md-8">
-                            <label for="ISBN" class="col-form-label">ISBN</label>
-                            <input type="text" th:field="*{ISBN}" class="form-control" id="isbn" placeholder="ISBN" />
-                            <span th:if="${#fields.hasErrors('ISBN')}" th:errors="*{ISBN}"></span>
-                        </div>
+        <input type="text" th:field="*{page_nr}"
+               class="form-control mb-4 col-4" placeholder="Page Numbers">
 
-                        <div class="form-group col-md-8">
-                            <label for="title" class="col-form-label">Book Name</label>
-                            <input type="text" th:field="*{title}" class="form-control" id="title" placeholder="Book Name" />
-                        </div>
+        <input type="text" th:field="*{year_of_release}"
+               class="form-control mb-4 col-4" placeholder="Release Year">
 
-                        <div class="form-group col-md-8">
-                            <label for="page_nr" class="col-form-label">Page NR </label>
-                            <input type="text" th:field="*{page_nr}" class="form-control" id="page_nr" placeholder="Serial Name" />
-                        </div>
+        <input type="text" th:field="*{price}"
+               class="form-control mb-4 col-4" placeholder="Price">
 
-                        <div class="form-group col-md-8">
-                            <label for="price" class="col-form-label">Price</label>
-                            <input type="text" th:field="*{price}" class="form-control" id="price" placeholder="Description" />
-                        </div>
+        <input type="text" th:field="*{ISBN}"
+               class="form-control mb-4 col-4" placeholder="ISBN">
 
-                        <div class="form-group col-md-8">
-                            <label for="description" class="col-form-label">description</label>
-                            <input type="text" th:field="*{description}" class="form-control" id="description" placeholder="Description" />
-                        </div>
+        <input type="text" th:field="*{isRented}"
+               class="form-control mb-4 col-4" placeholder="IsRented">
 
-                        <div class="col-md-6">
-                            <input type="submit" class="btn btn-primary" value=" Submit ">
-                        </div>
+        <input type="text" th:field="*{author.name}"
+               class="form-control mb-4 col-4" placeholder="ISBN">
 
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+        <input type="text" th:field="*{publisher.name}"
+               class="form-control mb-4 col-4" placeholder="ISBN">
+
+        <button type="submit" class="btn btn-info col-2">Save</button>
+    </form>
+    <hr>
 </div>
-
-
-
-
-
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
 </body>
 </html>
+

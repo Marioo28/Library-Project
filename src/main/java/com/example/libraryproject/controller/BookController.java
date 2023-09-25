@@ -70,19 +70,11 @@ public class BookController {
         }
 
         bookService.addBook(bookDTO);
-//        modelMap.addAttribute("book", new BookDTO());
+
         model.addAttribute("book", bookService.findAllBooks());
         return "redirect:/api/books";
     }
 
-//    //method down in book.html
-//    @GetMapping("/search")
-//    public String getBookByTitle(@RequestParam("searchTerm") String searchTerm, final Model model) {
-//        BookDTO bookDTO = bookService.findBookByTitleDTO(searchTerm);
-//        model.addAttribute("bookDTO", bookDTO);
-//        return "searchResults";
-//
-//    }
 
     //method in header
     @RequestMapping("/searchBook")
@@ -94,45 +86,41 @@ public class BookController {
         return "list-books";
     }
 
-    @GetMapping("/editBook/{id}")
-    public String editBook(@PathVariable int id, Model model) {
-        Book book = bookService.findById(id);
-        model.addAttribute("book", book);
-        return "update-book-test";
-    }
-
-    @PostMapping("/updateBook")
-    public String updateBook(@ModelAttribute Book updatedBook) {
-        // Here, you can update the author's information using the updatedAuthor object
-        // Save it to the database using the authorRepository or your data access layer
-        bookService.saveBook(updatedBook);
-
-        // Redirect to the author list or a success page
-        return "redirect:/api/books";
-    }
+//    @GetMapping("/editBook/{id}")
+//    public String editBook(@PathVariable int id, Model model) {
+//        Book book = bookService.findById(id);
+//        model.addAttribute("book", book);
+//        return "update-book-test";
+//    }
+//
+//    @PostMapping("/updateBook")
+//    public String updateBook(@ModelAttribute Book updatedBook) {
+//        // Here, you can update the author's information using the updatedAuthor object
+//        // Save it to the database using the authorRepository or your data access layer
+//        bookService.saveBook(updatedBook);
+//
+//        // Redirect to the author list or a success page
+//        return "redirect:/api/books";
+//    }
 
 //    -----------Book Update 25/09------------
 
 
-    @GetMapping("/updateBookForm/{id}")
-    public String showUpdateForm(@PathVariable("id") int id, Model model) {
+    @GetMapping("/showFormForUpdate")
+    public String showUpdateForm(@RequestParam("bookId") int id, Model model) {
         final Book book = bookService.findBookById(id);
 
-        model.addAttribute("book", book);
+        model.addAttribute("books1", book);
         return "update-book-25.09";
     }
-
-    @RequestMapping("/updateTheBook/{id}")
-    public String updateTheBook(@PathVariable("id") int id, Book book, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            book.setId(id);
-            return "update-book-25.09";
-        }
-
-        bookService.updateBook(book);
-        model.addAttribute("book", bookService.findAllBooks());
-        return "redirect:api/books";
+    @PostMapping("/save")
+    public String saveBook(@ModelAttribute("books") Book theBook) {
+        // save the book
+        bookService.saveBook(theBook);
+        // use a redirect to prevent duplicate submissions
+        return "redirect:/api/books";
     }
+
 //    -----------Book Update 25/09------------
 
     @RequestMapping("/deleteBook/{id}")
