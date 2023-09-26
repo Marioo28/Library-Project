@@ -9,8 +9,17 @@
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>BookLibrary</title>
 </head>
-<body>
+<body style="background-color:#f3f6f4;">
 <div th:insert="~{fragments/header :: header}"></div>
+
+<div class="container my-1">
+    <p class="my-5">
+        <a href="/api/books/addBook" th:href="@{/api/books/addBook}" class="btn btn-primary">
+            <i class="fas fa-user-plus ml-2"> Add New Book </i></a>
+        <a href="/api/books/addBook" th:href="@{/api/books}" class="btn btn-primary">
+            <i class="fa fa-user-circle-o" aria-hidden="true"> Back </i></a>
+    </p>
+</div>
 
 <div class="container mt-5">
     <h2>Books found</h2>
@@ -24,7 +33,7 @@
             <th>Publisher</th>
             <th>Price</th>
             <th>ISBN</th>
-            <th>Rented?</th>
+<!--            <th>Rented?</th>-->
             <th>Edit</th>
             <th>Delete</th>
         </tr>
@@ -38,7 +47,7 @@
             <td th:text="${book.publisher}"></td>
             <td th:text="${book.price}"></td>
             <td th:text="${book.ISBN}"></td>
-            <td th:text="${book.isRented}"></td>
+<!--            <td th:text="${book.isRented}"></td>-->
 
             <td><a th:href="@{/api/books/showFormForUpdate(bookId=${book.id})}" class="btn btn-primary"><i
                     class="fas fa-user-edit ml-2"></i></a></td>
