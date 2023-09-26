@@ -1,6 +1,7 @@
 package com.example.libraryproject.service;
 
 
+import com.example.libraryproject.exception.NotFoundException;
 import com.example.libraryproject.model.Author;
 import com.example.libraryproject.model.Book;
 import com.example.libraryproject.model.DTO.AuthorDTO;
@@ -19,6 +20,20 @@ public class AuthorService {
 
     public Author saveAuthor(Author author) {
         return findOrCreateAuthor(author.getName());
+    }
+
+    public Author saveAuthor2(Author authorToSave) {
+        Author author = authorRepository.findById(authorToSave.getId())
+                .orElseThrow(() -> new NotFoundException(String.format("Author not found with ID %d", authorToSave.getId())));
+        author.setName(authorToSave.getName());
+        author.setBookList(authorToSave.getBookList());
+
+        try {
+            authorRepository.save(authorToSave);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return author;
     }
 
     public Author updateAuthor(Author authorToUpdate) {
@@ -54,8 +69,7 @@ public class AuthorService {
         Author theAuthor = null;
         if (result.isPresent()) {
             theAuthor = result.get();
-        }
-        else {
+        } else {
             throw new RuntimeException("Did not find author id - " + id);
         }
         return theAuthor;

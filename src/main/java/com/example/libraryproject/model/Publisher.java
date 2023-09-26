@@ -19,7 +19,8 @@ public class Publisher {
     private int id;
     private String name;
 
-    @OneToMany(mappedBy = "publisher", cascade = {CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH}, orphanRemoval = true)
+    @OneToMany(mappedBy = "publisher", cascade = {CascadeType.PERSIST,CascadeType.DETACH,
+            CascadeType.MERGE,CascadeType.REFRESH,CascadeType.REMOVE})
     List<Book> books = new ArrayList<>();
 
     public Publisher(String name) {

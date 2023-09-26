@@ -1,5 +1,7 @@
 package com.example.libraryproject.service;
 
+import com.example.libraryproject.exception.NotFoundException;
+import com.example.libraryproject.model.Author;
 import com.example.libraryproject.model.Book;
 import com.example.libraryproject.model.DTO.PublisherDTO;
 import com.example.libraryproject.model.Publisher;
@@ -19,6 +21,20 @@ public class PublisherService {
 
     public Publisher savePublisher(Publisher publisher) {
         return findOrCreatePublisher(publisher.getName());
+    }
+
+    public Publisher updatePublisher(Publisher publisherToUpdate) {
+        Publisher publisher = publisherRepository.findById(publisherToUpdate.getId())
+                .orElseThrow(() -> new NotFoundException(String.format("Publisher not found with ID %d", publisherToUpdate.getId())));
+        publisher.setName(publisherToUpdate.getName());
+        publisher.setBooks(publisherToUpdate.getBooks());
+
+        try {
+            publisherRepository.save(publisherToUpdate);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return publisher;
     }
 
     public void removePublisherById(int id) {

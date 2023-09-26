@@ -1,6 +1,7 @@
 package com.example.libraryproject.controller;
 
 import com.example.libraryproject.model.Author;
+import com.example.libraryproject.model.Book;
 import com.example.libraryproject.model.DTO.AuthorDTO;
 import com.example.libraryproject.service.AuthorService;
 import org.modelmapper.ModelMapper;
@@ -49,43 +50,58 @@ public class AuthorController {
         return "redirect:/api/authors";
     }
 
-    @GetMapping("/updateAuthor/{id}")
-    public String showUpdateForm(@PathVariable("id") int id, Model model) {
-        Author author = authorService.findById(id);
 
-        model.addAttribute("authorForUpdate", author);
+    @GetMapping("/showFormForUpdateAuthor")
+    public String showUpdateForm(@RequestParam("authorId") int id, Model model) {
+        final Author author = authorService.findById(id);
 
-        return "update-author";
+        model.addAttribute("author1", author);
+        return "update-author-25.09";
     }
-
-    @PostMapping("/update-author/{id}")
-    public String updateAuthor(@PathVariable("id") int id, Author author, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            author.setId(id);
-            return "update-author";
-        }
-
-        authorService.saveAuthor(author);
-        model.addAttribute("author", authorService.findAllAuthors());
-        return "redirect:api/authors";
-    }
-
-    @GetMapping("/editAuthor/{id}")
-    public String editAuthor(@PathVariable int id, Model model) {
-        Author author = authorService.findById(id);
-         model.addAttribute("author", author);
-        return "update-author-test";
-    }
-
-    @PostMapping("/updateAuthor2")
-    public String updateAuthor(@ModelAttribute Author updatedAuthor) {
-        // Here, you can update the author's information using the updatedAuthor object
-        // Save it to the database using the authorRepository or your data access layer
-        authorService.updateAuthor(updatedAuthor);
-
-        // Redirect to the author list or a success page
+    @PostMapping("/save")
+    public String saveAuthor(@ModelAttribute("authors") Author theAuthor) {
+        // save the book
+        authorService.saveAuthor2(theAuthor);
+        // use a redirect to prevent duplicate submissions
         return "redirect:/api/authors";
     }
+//    @GetMapping("/updateAuthor/{id}")
+//    public String showUpdateForm(@PathVariable("id") int id, Model model) {
+//        Author author = authorService.findById(id);
+//
+//        model.addAttribute("authorForUpdate", author);
+//
+//        return "update-author";
+//    }
+//
+//    @PostMapping("/update-author/{id}")
+//    public String updateAuthor(@PathVariable("id") int id, Author author, BindingResult result, Model model) {
+//        if (result.hasErrors()) {
+//            author.setId(id);
+//            return "update-author";
+//        }
+//
+//        authorService.saveAuthor(author);
+//        model.addAttribute("author", authorService.findAllAuthors());
+//        return "redirect:api/authors";
+//    }
+//
+//    @GetMapping("/editAuthor/{id}")
+//    public String editAuthor(@PathVariable int id, Model model) {
+//        Author author = authorService.findById(id);
+//         model.addAttribute("author", author);
+//        return "update-author-test";
+//    }
+//
+//    @PostMapping("/updateAuthor2")
+//    public String updateAuthor(@ModelAttribute Author updatedAuthor) {
+//        // Here, you can update the author's information using the updatedAuthor object
+//        // Save it to the database using the authorRepository or your data access layer
+//        authorService.updateAuthor(updatedAuthor);
+//
+//        // Redirect to the author list or a success page
+//        return "redirect:/api/authors";
+//    }
 
     @RequestMapping("/deleteAuthor/{id}")
     public String removeById(@PathVariable("id") int id, Model model) {
