@@ -1,7 +1,6 @@
 package com.example.libraryproject.controller;
 
 import com.example.libraryproject.model.Author;
-import com.example.libraryproject.model.Book;
 import com.example.libraryproject.model.DTO.AuthorDTO;
 import com.example.libraryproject.service.AuthorService;
 import org.modelmapper.ModelMapper;
@@ -13,7 +12,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 //@RestController
@@ -51,12 +49,12 @@ public class AuthorController {
     }
 
 
-    @GetMapping("/showFormForUpdateAuthor")
+    @GetMapping("/showFormForUpdate")
     public String showUpdateForm(@RequestParam("authorId") int id, Model model) {
         final Author author = authorService.findById(id);
 
         model.addAttribute("author1", author);
-        return "update-author-25.09";
+        return "update-author";
     }
     @PostMapping("/save")
     public String saveAuthor(@ModelAttribute("authors") Author theAuthor) {

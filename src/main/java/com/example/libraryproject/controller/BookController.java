@@ -1,6 +1,5 @@
 package com.example.libraryproject.controller;
 
-import com.example.libraryproject.model.Author;
 import com.example.libraryproject.model.Book;
 import com.example.libraryproject.model.DTO.BookDTO;
 import com.example.libraryproject.service.AuthorService;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-//@RestController
 @RequestMapping("/api/books")
 public class BookController {
 
@@ -32,12 +30,11 @@ public class BookController {
     private final PublisherService publisherService;
 
     @Autowired
-    public BookController(BookService bookService, AuthorService authorService,PublisherService publisherService) {
+    public BookController(BookService bookService, AuthorService authorService, PublisherService publisherService) {
         this.bookService = bookService;
         this.authorService = authorService;
         this.publisherService = publisherService;
     }
-
 
     @GetMapping()
     public String showBooks(final ModelMap modelMap) {
@@ -48,13 +45,6 @@ public class BookController {
 
         return "books";
     }
-
-//    @PostMapping
-//    public String addBook(@ModelAttribute BookDTO book) {
-//        BookDTO savedBook = bookService.addBook(book);
-//
-//        return "homePage";
-//    }
 
     @GetMapping("/addBook")
     public String showCreateForm(BookDTO bookDTO, Model model) {
@@ -70,11 +60,9 @@ public class BookController {
         }
 
         bookService.addBook(bookDTO);
-
         model.addAttribute("book", bookService.findAllBooks());
         return "redirect:/api/books";
     }
-
 
     //method in header
     @RequestMapping("/searchBook")
@@ -86,16 +74,14 @@ public class BookController {
         return "list-books";
     }
 
-
-//    -----------Book Update 25/09------------
-
     @GetMapping("/showFormForUpdate")
     public String showUpdateForm(@RequestParam("bookId") int id, Model model) {
         final Book book = bookService.findBookById(id);
 
         model.addAttribute("books1", book);
-        return "update-book-25.09";
+        return "update-book";
     }
+
     @PostMapping("/save")
     public String saveBook(@ModelAttribute("books") Book theBook) {
         // save the book
@@ -104,8 +90,6 @@ public class BookController {
         return "redirect:/api/books";
     }
 
-//    -----------Book Update 25/09------------
-
     @RequestMapping("/deleteBook/{id}")
     public String removeById(@PathVariable("id") int id, Model model) {
         bookService.removeBookById(id);
@@ -113,37 +97,4 @@ public class BookController {
         model.addAttribute("books", bookService.findAllBooks());
         return "redirect:/api/books";
     }
-
-
-//    @PostMapping("/addBook")
-//    public BookDTO saveBook(@RequestBody BookDTO bookDTO) {
-//        return bookService.addBook(bookDTO);
-//    }
-//
-//    @GetMapping("/find/{id}")
-//    public ResponseEntity<BookDTO> findBookById(@PathVariable int id) {
-//        BookDTO bookDTO = bookService.findBookById(id);
-////      Book book = modelMapper.map(book, BookDTO.class );
-//        return ResponseEntity.ok().body(bookDTO);
-//    }
-
-//    @GetMapping("/getAllBooks")
-//    public List<BookDTO> getAllBooks() {
-//        return bookService.findAllBooks().stream().map(book -> modelMapper.map(book, BookDTO.class))
-//                .collect(Collectors.toList());
-//    }
-
-
-
-//    @Transactional
-//    @DeleteMapping("/delete/{id}")
-//    public ResponseEntity<Void> removeById(@PathVariable int id) {
-//        bookService.removeBookById(id);
-//        return ResponseEntity.noContent().build();
-//    }
-
-//    @GetMapping("/findByTitle")
-//    public ResponseEntity<List<Book>> getBookByName(@RequestParam String name) {
-//        return new ResponseEntity<List<Book>>(bookService.findBookByTitle(name), HttpStatus.OK);
-//    }
 }

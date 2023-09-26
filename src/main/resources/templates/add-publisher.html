@@ -25,13 +25,19 @@
 
                         <div class="col-md-6">
                             <input type="submit" class="btn btn-primary" value=" Submit ">
+                            <input type="button" class="btn btn-primary" id="cancelButton" value=" Cancel ">
                         </div>
-
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById("cancelButton").addEventListener("click", function() {
+        window.location.href = "/api/publishers";
+    });
+</script>
 </body>
 </html>

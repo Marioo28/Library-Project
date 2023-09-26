@@ -1,6 +1,5 @@
 package com.example.libraryproject.controller;
 
-import com.example.libraryproject.model.Author;
 import com.example.libraryproject.model.DTO.PublisherDTO;
 import com.example.libraryproject.model.Publisher;
 import com.example.libraryproject.service.PublisherService;
@@ -47,11 +46,11 @@ public class PublisherController {
         return "redirect:/api/publishers";
     }
 
-    @GetMapping("/showFormForUpdatePublisher")
+    @GetMapping("/showFormForUpdate")
     public String showUpdateForm(@RequestParam("publisherId") int id, Model model) {
         final Publisher publisher = publisherService.findPublisherById(id);
         model.addAttribute("publisher1", publisher);
-        return "update-publisher-25.09";
+        return "update-publisher";
     }
     @PostMapping("/save")
     public String saveAuthor(@ModelAttribute("publishers") Publisher thePublisher) {
