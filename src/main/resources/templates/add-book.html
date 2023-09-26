@@ -32,7 +32,7 @@
                             <label for="year_of_release" class="col-md-3 col-form-label">Release year:</label>
                             <div class="col-md-9">
                                 <input type="date" id="year_of_release" name="year_of_release" th:field="*{year_of_release}"
-                                       min="1950-01-01" max="2023-08-31" class="form-control" required>
+                                       min="1900-01-01" max="2023-12-31" class="form-control" required>
                             </div>
                         </div>
 
@@ -60,16 +60,16 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="isRented" class="col-md-3 col-form-label">isRented:</label>
-                            <div class="col-md-9">
-                                <select id="isRented" name="isRented" th:field="*{isRented}" class="form-control" required>
-                                    <option value="">Choose an option</option>
-                                    <option value="Yes">Yes</option>
-                                    <option value="No">No</option>
-                                </select>
-                            </div>
-                        </div>
+<!--                        <div class="form-group row">-->
+<!--                            <label for="isRented" class="col-md-3 col-form-label">isRented:</label>-->
+<!--                            <div class="col-md-9">-->
+<!--                                <select id="isRented" name="isRented" th:field="*{isRented}" class="form-control" required>-->
+<!--                                    <option value="">Choose an option</option>-->
+<!--                                    <option value="Yes">Yes</option>-->
+<!--                                    <option value="No">No</option>-->
+<!--                                </select>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
                         <div class="form-group row">
                             <label for="author" class="col-md-3 col-form-label">Author:</label>
@@ -85,8 +85,6 @@
                         <div class="form-group row">
                             <label for="publisher" class="col-md-3 col-form-label">Publisher:</label>
                             <div class="col-md-9">
-<!--                                <input type="text" id="publisher" name="publisher" th:field="*{publisher}"-->
-<!--                                       class="form-control" placeholder="Publisher" required>-->
                                 <select th:field ="*{publisher}" class="form-control" >
                                     <option th:each="publisher: ${publishers}" th:value="${publisher.name}" th:text = "${publisher.name}"></option>
                                 </select>
@@ -95,6 +93,7 @@
 
                         <div class="col-md-6">
                             <input type="submit" class="btn btn-primary" value=" Submit ">
+                            <input type="button" class="btn btn-primary" id="cancelButton" value=" Cancel ">
                         </div>
                     </div>
                 </form>
@@ -102,5 +101,10 @@
         </div>
     </div>
 </div>
+<script>
+    document.getElementById("cancelButton").addEventListener("click", function() {
+        window.location.href = "/api/books";
+    });
+</script>
 </body>
 </html>

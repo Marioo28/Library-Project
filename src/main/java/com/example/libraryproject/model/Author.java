@@ -20,7 +20,8 @@ public class Author {
     public String name;
 
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "author", cascade = {CascadeType.PERSIST,CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH}, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "author", cascade = {CascadeType.PERSIST,
+            CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH,CascadeType.REMOVE})
     List<Book> bookList = new ArrayList<>();
 
     public Author(String name) {

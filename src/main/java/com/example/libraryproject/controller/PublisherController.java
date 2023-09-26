@@ -1,6 +1,5 @@
 package com.example.libraryproject.controller;
 
-import com.example.libraryproject.model.Author;
 import com.example.libraryproject.model.DTO.PublisherDTO;
 import com.example.libraryproject.model.Publisher;
 import com.example.libraryproject.service.PublisherService;
@@ -10,9 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -49,25 +46,16 @@ public class PublisherController {
         return "redirect:/api/publishers";
     }
 
-    @GetMapping("/updatePublisher/{id}")
-    public String showUpdateForm(@PathVariable("id") int id, Model model) {
+    @GetMapping("/showFormForUpdate")
+    public String showUpdateForm(@RequestParam("publisherId") int id, Model model) {
         final Publisher publisher = publisherService.findPublisherById(id);
-
-        model.addAttribute("publisher", publisher);
-
+        model.addAttribute("publisher1", publisher);
         return "update-publisher";
     }
-
-    @RequestMapping("/update-publisher/{id}")
-    public String updatePublisher(@PathVariable("id") int id, Publisher publisher, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            publisher.setId(id);
-            return "update-publisher";
-        }
-
-        publisherService.savePublisher(publisher);
-        model.addAttribute("author", publisherService.findAllPublishers());
-        return "redirect:/publishers";
+    @PostMapping("/save")
+    public String saveAuthor(@ModelAttribute("publishers") Publisher thePublisher) {
+        publisherService.updatePublisher(thePublisher);
+        return "redirect:/api/publishers";
     }
 
     @RequestMapping("/deletePublisher/{id}")
