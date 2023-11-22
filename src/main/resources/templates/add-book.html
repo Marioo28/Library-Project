@@ -24,14 +24,15 @@
                             <label for="title" class="col-md-3 col-form-label">Book Title:</label>
                             <div class="col-md-9">
                                 <input type="text" id="title" name="title" th:field="*{title}"
-                                        class="form-control" placeholder="Book Name" required>
+                                       class="form-control" placeholder="Book Name" required>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="year_of_release" class="col-md-3 col-form-label">Release year:</label>
                             <div class="col-md-9">
-                                <input type="date" id="year_of_release" name="year_of_release" th:field="*{year_of_release}"
+                                <input type="date" id="year_of_release" name="year_of_release"
+                                       th:field="*{year_of_release}"
                                        min="1900-01-01" max="2023-12-31" class="form-control" required>
                             </div>
                         </div>
@@ -60,24 +61,25 @@
                             </div>
                         </div>
 
-<!--                        <div class="form-group row">-->
-<!--                            <label for="isRented" class="col-md-3 col-form-label">isRented:</label>-->
-<!--                            <div class="col-md-9">-->
-<!--                                <select id="isRented" name="isRented" th:field="*{isRented}" class="form-control" required>-->
-<!--                                    <option value="">Choose an option</option>-->
-<!--                                    <option value="Yes">Yes</option>-->
-<!--                                    <option value="No">No</option>-->
-<!--                                </select>-->
-<!--                            </div>-->
-<!--                        </div>-->
+                        <!--                        <div class="form-group row">-->
+                        <!--                            <label for="isRented" class="col-md-3 col-form-label">isRented:</label>-->
+                        <!--                            <div class="col-md-9">-->
+                        <!--                                <select id="isRented" name="isRented" th:field="*{isRented}" class="form-control" required>-->
+                        <!--                                    <option value="">Choose an option</option>-->
+                        <!--                                    <option value="Yes">Yes</option>-->
+                        <!--                                    <option value="No">No</option>-->
+                        <!--                                </select>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
 
                         <div class="form-group row">
                             <label for="author" class="col-md-3 col-form-label">Author:</label>
                             <div class="col-md-9">
-<!--                                <input type="text" id="author" name="author" th:field="*{author}" class="form-control"-->
-<!--                                       placeholder="Author" required>-->
-                                <select th:field ="*{author}" class="form-control" >
-                                    <option th:each="author: ${authors}" th:value="${author.name}" th:text = "${author.name}"></option>
+                                <!--                                <input type="text" id="author" name="author" th:field="*{author}" class="form-control"-->
+                                <!--                                       placeholder="Author" required>-->
+                                <select th:field="*{author}" class="form-control">
+                                    <option th:each="author: ${authors}" th:value="${author.name}"
+                                            th:text="${author.name}"></option>
                                 </select>
                             </div>
                         </div>
@@ -85,8 +87,9 @@
                         <div class="form-group row">
                             <label for="publisher" class="col-md-3 col-form-label">Publisher:</label>
                             <div class="col-md-9">
-                                <select th:field ="*{publisher}" class="form-control" >
-                                    <option th:each="publisher: ${publishers}" th:value="${publisher.name}" th:text = "${publisher.name}"></option>
+                                <select th:field="*{publisher}" class="form-control">
+                                    <option th:each="publisher: ${publishers}" th:value="${publisher.name}"
+                                            th:text="${publisher.name}"></option>
                                 </select>
                             </div>
                         </div>
@@ -102,7 +105,7 @@
     </div>
 </div>
 <script>
-    document.getElementById("cancelButton").addEventListener("click", function() {
+    document.getElementById("cancelButton").addEventListener("click", function () {
         window.location.href = "/api/books";
     });
 </script>

@@ -20,7 +20,8 @@
 
                         <div class="form-group col-md-8">
                             <label for="name" class="col-form-label">Publisher Name</label>
-                            <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Publisher Name" />
+                            <input type="text" th:field="*{name}" class="form-control" id="name"
+                                   placeholder="Publisher Name"/>
                         </div>
 
                         <div class="col-md-6">
@@ -35,7 +36,7 @@
 </div>
 
 <script>
-    document.getElementById("cancelButton").addEventListener("click", function() {
+    document.getElementById("cancelButton").addEventListener("click", function () {
         window.location.href = "/api/publishers";
     });
 </script>

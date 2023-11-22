@@ -45,7 +45,7 @@
             <th>Publisher</th>
             <th>Price</th>
             <th>ISBN</th>
-<!--            <th>Rented?</th>-->
+            <!--            <th>Rented?</th>-->
             <th>Edit</th>
             <th>Delete</th>
         </tr>
@@ -58,7 +58,7 @@
             <td th:text="${book.publisher}"></td>
             <td th:text="${book.price}"></td>
             <td th:text="${book.ISBN}"></td>
-<!--            <td th:text="${book.isRented}"></td>-->
+            <!--            <td th:text="${book.isRented}"></td>-->
             <td><a th:href="@{/api/books/showFormForUpdate(bookId=${book.id})}" class="btn btn-primary"><i
                     class="fas fa-user-edit ml-2"></i></a></td>
             <td><a th:href="@{/api/books/deleteBook/{id}(id=${book.id})}" class="btn btn-primary"
