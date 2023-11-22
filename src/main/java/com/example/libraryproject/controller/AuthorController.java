@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-//@RestController
 @RequestMapping("/api/authors")
 public class AuthorController {
 
@@ -22,7 +21,6 @@ public class AuthorController {
     private AuthorService authorService;
     @Autowired
     private ModelMapper modelMapper;
-
 
     @GetMapping()
     public String showAuthors(final ModelMap modelMap) {
@@ -42,12 +40,10 @@ public class AuthorController {
         if (bindingResult.hasErrors()) {
             return "add-author";
         }
-
         authorService.saveAuthor(author);
         model.addAttribute("author", authorService.findAllAuthors());
         return "redirect:/api/authors";
     }
-
 
     @GetMapping("/showFormForUpdate")
     public String showUpdateForm(@RequestParam("authorId") int id, Model model) {

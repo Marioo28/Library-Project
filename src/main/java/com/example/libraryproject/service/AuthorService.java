@@ -24,7 +24,8 @@ public class AuthorService {
 
     public Author saveAuthor2(Author authorToSave) {
         Author author = authorRepository.findById(authorToSave.getId())
-                .orElseThrow(() -> new NotFoundException(String.format("Author not found with ID %d", authorToSave.getId())));
+                .orElseThrow(() -> new NotFoundException(
+                        String.format("Author not found with ID %d", authorToSave.getId())));
         author.setName(authorToSave.getName());
         author.setBookList(authorToSave.getBookList());
 
@@ -94,7 +95,6 @@ public class AuthorService {
 //        }
 //        return authorBookCount;
 //    }
-
 
     public List<AuthorDTO> findAllAuthorsDTO() {
         List<Author> authors = authorRepository.findAll();

@@ -1,14 +1,11 @@
 package com.example.libraryproject.model.DTO;
 
 import com.example.libraryproject.model.Book;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.time.LocalDate;
 
 @Data
-
 @NoArgsConstructor
 public class BookDTO {
     private int id;

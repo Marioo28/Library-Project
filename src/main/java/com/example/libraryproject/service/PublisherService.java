@@ -25,7 +25,8 @@ public class PublisherService {
 
     public Publisher updatePublisher(Publisher publisherToUpdate) {
         Publisher publisher = publisherRepository.findById(publisherToUpdate.getId())
-                .orElseThrow(() -> new NotFoundException(String.format("Publisher not found with ID %d", publisherToUpdate.getId())));
+                .orElseThrow(() -> new NotFoundException(
+                        String.format("Publisher not found with ID %d", publisherToUpdate.getId())));
         publisher.setName(publisherToUpdate.getName());
         publisher.setBooks(publisherToUpdate.getBooks());
 

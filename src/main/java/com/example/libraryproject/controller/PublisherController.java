@@ -14,14 +14,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-//@RestController
 @RequestMapping("/api/publishers")
 public class PublisherController {
     @Autowired
     private PublisherService publisherService;
     @Autowired
     private ModelMapper modelMapper;
-
 
     @GetMapping()
     public String showPublishers(final ModelMap modelMap) {
@@ -52,6 +50,7 @@ public class PublisherController {
         model.addAttribute("publisher1", publisher);
         return "update-publisher";
     }
+
     @PostMapping("/save")
     public String saveAuthor(@ModelAttribute("publishers") Publisher thePublisher) {
         publisherService.updatePublisher(thePublisher);
