@@ -3,6 +3,8 @@ package com.example.libraryproject.controller;
 import com.example.libraryproject.model.DTO.PublisherDTO;
 import com.example.libraryproject.model.Publisher;
 import com.example.libraryproject.service.PublisherService;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/api/publishers")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class PublisherController {
     @Autowired
     private PublisherService publisherService;

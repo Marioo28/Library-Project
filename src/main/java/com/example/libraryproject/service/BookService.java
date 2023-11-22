@@ -6,6 +6,8 @@ import com.example.libraryproject.model.Book;
 import com.example.libraryproject.model.DTO.BookDTO;
 import com.example.libraryproject.model.Publisher;
 import com.example.libraryproject.repository.BookRepository;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -15,6 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class BookService {
     @Autowired
     private BookRepository bookRepository;

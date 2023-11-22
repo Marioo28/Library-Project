@@ -3,6 +3,8 @@ package com.example.libraryproject.controller;
 import com.example.libraryproject.model.Author;
 import com.example.libraryproject.model.DTO.AuthorDTO;
 import com.example.libraryproject.service.AuthorService;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/api/authors")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class AuthorController {
 
     @Autowired

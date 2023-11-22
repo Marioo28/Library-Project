@@ -1,5 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">-->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,7 +14,8 @@
 </head>
 <body style="background-color: #ffe599;">
 <!--    <div th:insert="~{fragments/header :: header}"></div>-->
-
+<sec:authentication property="principal.username" var="user"/>
+<sec:authentication property="principal.authorities" var="authorities"/>
 <div class="container mt-5">
     <div style="text-align: center;">
         <h1 class="bs-secondary-bg" style="color:RGB(66,143,39)"></h1>

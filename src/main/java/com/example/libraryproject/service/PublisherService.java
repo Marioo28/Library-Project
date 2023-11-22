@@ -6,6 +6,8 @@ import com.example.libraryproject.model.Book;
 import com.example.libraryproject.model.DTO.PublisherDTO;
 import com.example.libraryproject.model.Publisher;
 import com.example.libraryproject.repository.PublisherRepository;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class PublisherService {
     @Autowired
     private PublisherRepository publisherRepository;

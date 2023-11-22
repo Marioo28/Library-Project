@@ -5,6 +5,8 @@ import com.example.libraryproject.model.DTO.BookDTO;
 import com.example.libraryproject.service.AuthorService;
 import com.example.libraryproject.service.BookService;
 import com.example.libraryproject.service.PublisherService;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -18,6 +20,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/api/books")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class BookController {
 
     @Autowired
